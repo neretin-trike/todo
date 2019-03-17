@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as ReactRouterDOM from "react-router-dom";
 
+import * as ReactRouterDOM from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: purple,
+    secondary: {
+      main: '#f44336',
+    },
+  },
+});
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -19,16 +30,20 @@ class App extends Component {
       filterText: ""
     };
 
-    // this.onAddItem = this.onAddItem.bind(this);
+    this.onClickHandle = this.onClickHandle.bind(this);
   }
+
+  onClickHandle(e) {
+    console.log("Произошёл клик"); 
+   }
 
   render() {
     return (
-      <div className="Container">
-        <Button variant="contained" color="primary">
-          Добавить
-        </Button>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="Container">
+          <Button onClick={this.onClickHandle} variant="outlined" color="secondary">Добавить</Button>
+        </div>
+      </MuiThemeProvider>
     )
   }
 }
