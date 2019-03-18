@@ -80,3 +80,20 @@ tbody tr {
   height: 1px;
   background-color: #27272785;
 }
+
+.custom-card {
+  margin: 25px 0;
+}
+
+.custom-cardheader {
+  background-color: #3d5afe !important;
+}
+
+
+.custom-file-input input{
+  opacity: 0;
+}
+
+.custom-cardheader span {
+  color: white !important;
+}

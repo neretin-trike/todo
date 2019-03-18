@@ -8,15 +8,25 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 
 import SvgIcon from '@material-ui/core/SvgIcon';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import Checkbox from '@material-ui/core/Checkbox';
+
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -27,8 +37,8 @@ const Redirect = ReactRouterDOM.Redirect;
 const theme = createMuiTheme({
   palette: {
     primary:{
-      main: '#fff',
-      dark: '#fff',
+      main: '#3d5afe',
+      dark: '#536dfe',
     }, 
     secondary: {
       main: '#3d5afe',
@@ -45,19 +55,19 @@ const theme = createMuiTheme({
 });
 
 let id = 0;
-function createData(taskName, level, time, date) {
+function createData(taskName, level, duration) {
   id += 1;
-  return { id, taskName, level, time, date };
+  return { id, taskName, level, duration};
 }
 
 const tasks = [
-  createData('Сделать проект ToDo', "высокий", "11:00", "18.03.2019"),
-  createData('Научиться переопределять стили', "средний", "12:42", "18.03.2019"),
-  createData('Настроить стили', "низкий", "13:27", "18.03.2019"),
+  createData('Сделать проект ToDo', "высокий", "1 д."),
+  createData('Научиться переопределять стили', "средний", "12 ч.", "18.03.2019"),
+  createData('Настроить стили', "низкий", "6 ч."),
 ];
 const doneTasks = [
-  createData('Добавить чекбоксы', "средний", "15:05", "18.03.2019"),
-  createData('Добавить таблицу', "высокий", "11:15", "18.03.2019"),
+  createData('Добавить чекбоксы', "средний", "1 ч."),
+  createData('Добавить таблицу', "высокий", "2 ч."),
 ];
 
 class Title extends Component {
@@ -115,8 +125,7 @@ class App extends Component {
                   </TableCell>
                   <TableCell className="table-head-tasks">Список задач</TableCell>
                   <TableCell className="table-head-tasks" align="right">Приоритет</TableCell>
-                  <TableCell className="table-head-tasks" align="right">Время</TableCell>
-                  <TableCell className="table-head-tasks" align="right">Дата</TableCell>
+                  <TableCell className="table-head-tasks" align="right">Длительность</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -132,8 +141,7 @@ class App extends Component {
                       {row.taskName}
                     </TableCell>
                     <TableCell align="right">{row.level}</TableCell>
-                    <TableCell align="right">{row.time}</TableCell>
-                    <TableCell align="right">{row.date}</TableCell>
+                    <TableCell align="right">{row.duration}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -144,8 +152,7 @@ class App extends Component {
                   </TableCell>
                   <TableCell>Сделанные задачи</TableCell>
                   <TableCell align="right">Приоритет</TableCell>
-                  <TableCell align="right">Время</TableCell>
-                  <TableCell align="right">Дата</TableCell>
+                  <TableCell align="right">Длительность</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -155,19 +162,112 @@ class App extends Component {
                     key={row.id}
                   >
                    <TableCell style={{width:"1px"}} padding="checkbox">
-                      <Checkbox disabled/>
+                      <Checkbox disabled checked/>
                     </TableCell>
                     <TableCell component="th" scope="row">
                       {row.taskName}
                     </TableCell>
                     <TableCell align="right">{row.level}</TableCell>
-                    <TableCell align="right">{row.time}</TableCell>
-                    <TableCell align="right">{row.date}</TableCell>
+                    <TableCell align="right">{row.duration}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </Paper>
+          <Card className="custom-card">
+            <CardHeader 
+               className="custom-cardheader"
+               title="Добавление новой задачи">
+            </CardHeader>
+            <CardContent>
+            <form noValidate autoComplete="off">
+              <TextField
+                required
+                label="Задача"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                label="Подробное описание"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows="4"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <Grid container spacing={16}>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Дни"
+                    helperText="Длительность в днях"
+                    margin="normal"
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Часы"
+                    helperText="Длительность в часах"
+                    margin="normal"
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Приоритет"
+                    select
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+                    value="Низкий"
+                  >
+                    <MenuItem value="Низкий">Низкий</MenuItem>>
+                    <MenuItem value="Средний">Средний</MenuItem>>
+                    <MenuItem value="Высокий">Высокий</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Файл"
+                    margin="normal"
+                    variant="outlined"
+                    type="file"
+                    fullWidth
+                    className="custom-file-input"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </form>
+            </CardContent>
+            <CardActions style={{ float: 'right' }}>
+              <Button  color="primary">
+                Отмена
+              </Button>
+              <Button  color="primary">
+                Сохранить
+              </Button>
+            </CardActions>
+          </Card>
         </div>
       </MuiThemeProvider>
     )
