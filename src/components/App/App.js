@@ -54,9 +54,9 @@ const tasks = [
   createData('Сделать проект ToDo', "высокий", "11:00", "18.03.2019"),
   createData('Научиться переопределять стили', "средний", "12:42", "18.03.2019"),
   createData('Настроить стили', "низкий", "13:27", "18.03.2019"),
-  createData('Добавить чекбоксы', "средний", "15:05", "18.03.2019"),
 ];
 const doneTasks = [
+  createData('Добавить чекбоксы', "средний", "15:05", "18.03.2019"),
   createData('Добавить таблицу', "высокий", "11:15", "18.03.2019"),
 ];
 
@@ -71,7 +71,7 @@ class Title extends Component {
         <SvgIcon color="secondary" className="titleIcon" {...props}>
           <path d="M14 10H2v2h12v-2zm0-4H2v2h12V6zM2 16h8v-2H2v2zm19.5-4.5L23 13l-6.99 7-4.51-4.5L13 14l3.01 3 5.49-5.5z" />
         </SvgIcon>
-        <Typography inline={true} color="secondary" component="h1" variant="h2" gutterBottom>ToDoList</Typography>
+        <Typography className="typography-header" component="h1" variant="h2" gutterBottom>ToDoList</Typography>
       </header>
     );
   }
@@ -97,9 +97,9 @@ class App extends Component {
         <div className="Container App">
           <Title />
           <Paper>
-            <Grid container justify="center" spacing={Number(16)}>
-              <Grid item>
-                <Fab color="primary" aria-label="Add">
+            <Grid container justify="center" className="grid-container" spacing={Number(16)}>
+              <Grid item className="grid-item">
+                <Fab className="add-task-button" aria-label="Add">
                 +
                 </Fab>
                 {/* <Button onClick={this.onClickHandle} color="secondary" variant="outlined">
@@ -113,10 +113,10 @@ class App extends Component {
                   <TableCell style={{width:"1px"}} padding="checkbox">
                     {/* <Checkbox checked={false} /> */}
                   </TableCell>
-                  <TableCell>Список задач</TableCell>
-                  <TableCell align="right">Уровень важности</TableCell>
-                  <TableCell align="right">Время</TableCell>
-                  <TableCell align="right">Дата</TableCell>
+                  <TableCell className="table-head-tasks">Список задач</TableCell>
+                  <TableCell className="table-head-tasks" align="right">Приоритет</TableCell>
+                  <TableCell className="table-head-tasks" align="right">Время</TableCell>
+                  <TableCell className="table-head-tasks" align="right">Дата</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -143,7 +143,7 @@ class App extends Component {
                     {/* <Checkbox checked={false} /> */}
                   </TableCell>
                   <TableCell>Сделанные задачи</TableCell>
-                  <TableCell align="right">Уровень важности</TableCell>
+                  <TableCell align="right">Приоритет</TableCell>
                   <TableCell align="right">Время</TableCell>
                   <TableCell align="right">Дата</TableCell>
                 </TableRow>
