@@ -31,6 +31,10 @@ html, body, #root {
   font-size: 54px;
 }
 
+tbody tr {
+  cursor: pointer;
+}
+
 .doneTasks th,
 .doneTasks td {
   position: relative;

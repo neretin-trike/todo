@@ -15,7 +15,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import Fab from '@material-ui/core/Fab';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -25,9 +26,13 @@ const Redirect = ReactRouterDOM.Redirect;
 
 const theme = createMuiTheme({
   palette: {
-    primary: purple,
+    primary:{
+      main: '#fff',
+      dark: '#fff',
+    }, 
     secondary: {
       main: '#3d5afe',
+      light: '#536dfe',
     },
   },
   overrides: {
@@ -66,7 +71,7 @@ class Title extends Component {
         <SvgIcon color="secondary" className="titleIcon" {...props}>
           <path d="M14 10H2v2h12v-2zm0-4H2v2h12V6zM2 16h8v-2H2v2zm19.5-4.5L23 13l-6.99 7-4.51-4.5L13 14l3.01 3 5.49-5.5z" />
         </SvgIcon>
-        <Typography inline="true" color="secondary" component="h1" variant="h2" gutterBottom>ToDoList</Typography>
+        <Typography inline={true} color="secondary" component="h1" variant="h2" gutterBottom>ToDoList</Typography>
       </header>
     );
   }
@@ -94,15 +99,20 @@ class App extends Component {
           <Paper>
             <Grid container justify="center" spacing={Number(16)}>
               <Grid item>
-                <Button onClick={this.onClickHandle} color="secondary" variant="outlined">
-                    Добавить
-                </Button>
+                <Fab color="primary" aria-label="Add">
+                +
+                </Fab>
+                {/* <Button onClick={this.onClickHandle} color="secondary" variant="outlined">
+                    +
+                </Button> */}
               </Grid>
             </Grid>
-            {/* <Typography component="tableTitle" variant="h6" gutterBottom>Таски</Typography> */}
             <Table>
               <TableHead>
                 <TableRow>
+                  <TableCell style={{width:"1px"}} padding="checkbox">
+                    {/* <Checkbox checked={false} /> */}
+                  </TableCell>
                   <TableCell>Список задач</TableCell>
                   <TableCell align="right">Уровень важности</TableCell>
                   <TableCell align="right">Время</TableCell>
@@ -111,7 +121,13 @@ class App extends Component {
               </TableHead>
               <TableBody>
                 {tasks.map(row => (
-                  <TableRow key={row.id}>
+                  <TableRow 
+                    hover={true} 
+                    key={row.id}
+                  >
+                   <TableCell style={{width:"1px"}} padding="checkbox">
+                      <Checkbox />
+                    </TableCell>
                     <TableCell component="th" scope="row">
                       {row.taskName}
                     </TableCell>
@@ -123,6 +139,9 @@ class App extends Component {
               </TableBody>
               <TableHead>
                 <TableRow>
+                  <TableCell style={{width:"1px"}} padding="checkbox">
+                    {/* <Checkbox checked={false} /> */}
+                  </TableCell>
                   <TableCell>Сделанные задачи</TableCell>
                   <TableCell align="right">Уровень важности</TableCell>
                   <TableCell align="right">Время</TableCell>
@@ -131,7 +150,13 @@ class App extends Component {
               </TableHead>
               <TableBody>
                 {doneTasks.map(row => (
-                  <TableRow className="doneTasks" key={row.id}>
+                  <TableRow 
+                    className="doneTasks" 
+                    key={row.id}
+                  >
+                   <TableCell style={{width:"1px"}} padding="checkbox">
+                      <Checkbox disabled/>
+                    </TableCell>
                     <TableCell component="th" scope="row">
                       {row.taskName}
                     </TableCell>
