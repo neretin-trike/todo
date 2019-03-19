@@ -27,6 +27,7 @@ import CardActions from '@material-ui/core/CardActions';
 
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -248,7 +249,8 @@ class App extends Component {
                     label="Файл"
                     margin="normal"
                     variant="outlined"
-                    type="file"
+                    // type="file"
+                    value="Имя файла"
                     fullWidth
                     className="custom-file-input"
                     InputLabelProps={{
@@ -260,11 +262,110 @@ class App extends Component {
             </form>
             </CardContent>
             <CardActions style={{ float: 'right' }}>
-              <Button  color="primary">
+              <Button variant="outlined" color="primary">
                 Отмена
               </Button>
-              <Button  color="primary">
+              <Button variant="outlined" color="primary">
                 Сохранить
+              </Button>
+            </CardActions>
+          </Card>
+          <Card className="custom-card">
+            <CardHeader 
+               title="Просмотр задачи">
+            </CardHeader>  
+            <CardContent>
+              <Grid container spacing={16} alignItems="center">
+                <Grid item xs={4}>
+                <Typography variant="subtitle1" gutterBottom>
+                  1. Задача
+                </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    readonly
+                    value="Научиться переопределять стили"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                <Typography variant="subtitle1" gutterBottom>
+                  2. Подробное описание
+                </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    readonly
+                    multiline
+                    rows={4}
+                    value="Здесь будет какой-нибудь длинный текст который не влазиет в одну строку, поэтому используется компонент со свойством multiline"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    3. Время выполнения
+                  </Typography>
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    readonly
+                    value="0 д."
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <TextField
+                    readonly
+                    value="12 ч."
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    4. Приоритет
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    readonly
+                    value="Низкий"
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    5. Файл
+                  </Typography>
+                </Grid>
+                <Grid item xs={8}>
+                  <TextField
+                    readonly
+                    value="какой-то-файл.jpg"
+                    variant="outlined"
+                    fullWidth
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          Kg
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                </Grid>
+            </Grid>
+            </CardContent>
+            <CardActions style={{ float: 'right' }}>
+              <Button variant="outlined" color="primary">
+                Закрыть
+              </Button>
+              <Button variant="outlined" color="primary">
+                Изменить
               </Button>
             </CardActions>
           </Card>

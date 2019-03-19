@@ -91,7 +91,7 @@ tbody tr {
 
 
 .custom-file-input input{
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .custom-cardheader span {
