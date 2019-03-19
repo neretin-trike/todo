@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as ReactRouterDOM from "react-router-dom";
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -103,6 +104,9 @@ class App extends Component {
    }
 
   render() {
+    // const { classes } = this.props;
+
+
     return (
       <MuiThemeProvider theme={theme}>
         <div className="Container App">
@@ -177,7 +181,12 @@ class App extends Component {
           </Paper>
           <Card className="custom-card">
             <CardHeader 
-               className="custom-cardheader"
+               classes={{
+                  root: "custom-cardheader",
+                  content: "custom-cardheader-title",
+                  title: "custom-cardheader-title"
+               }}
+               className=""
                title="Добавление новой задачи">
             </CardHeader>
             <CardContent>
