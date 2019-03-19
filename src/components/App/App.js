@@ -263,7 +263,7 @@ class App extends Component {
             </CardContent>
             <CardActions style={{ float: 'right' }}>
               <Button variant="outlined" color="primary">
-                Отмена
+                Отменить
               </Button>
               <Button variant="outlined" color="primary">
                 Сохранить
@@ -277,8 +277,8 @@ class App extends Component {
             <CardContent>
               <Grid container spacing={16} alignItems="center">
                 <Grid item xs={4}>
-                <Typography variant="subtitle1" gutterBottom>
-                  1. Задача
+                <Typography className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                  <span className="custom-counter" /> Задача
                 </Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -290,8 +290,8 @@ class App extends Component {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                <Typography variant="subtitle1" gutterBottom>
-                  2. Подробное описание
+                <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                  <span className="custom-counter" /> Подробное описание
                 </Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -305,8 +305,8 @@ class App extends Component {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    3. Время выполнения
+                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                    <span className="custom-counter" /> Время выполнения
                   </Typography>
                 </Grid>
                 <Grid item xs={4}>
@@ -326,8 +326,8 @@ class App extends Component {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    4. Приоритет
+                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                    <span className="custom-counter" /> Приоритет
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -339,8 +339,8 @@ class App extends Component {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    5. Файл
+                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                    <span className="custom-counter" /> Файл
                   </Typography>
                 </Grid>
                 <Grid item xs={8}>
@@ -352,7 +352,9 @@ class App extends Component {
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
-                          Kg
+                          <SvgIcon color="secondary">
+                            <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                          </SvgIcon>
                         </InputAdornment>
                       )
                     }}
