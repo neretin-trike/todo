@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Children } from 'react';
 import './App.css';
 import * as ReactRouterDOM from "react-router-dom";
 import PropTypes from 'prop-types';
@@ -89,6 +89,19 @@ class Title extends Component {
   }
 }
 
+class CustomTableCell extends Component{
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    let child = this.props.children;
+    let {...props} = this.props;
+    return (
+      <TableCell {...props} className="table-head-tasks">{child}</TableCell>
+    )
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -119,9 +132,9 @@ class App extends Component {
                   <TableCell style={{width:"1px"}} padding="checkbox">
                     {/* <Checkbox checked={false} /> */}
                   </TableCell>
-                  <TableCell className="table-head-tasks">Список задач</TableCell>
-                  <TableCell className="table-head-tasks" align="right">Приоритет</TableCell>
-                  <TableCell className="table-head-tasks" align="right">Длительность</TableCell>
+                  <CustomTableCell>Список задач</CustomTableCell>
+                  <CustomTableCell align="right">Приоритет</CustomTableCell>
+                  <CustomTableCell align="right">Длительность</CustomTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
