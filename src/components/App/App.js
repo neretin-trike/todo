@@ -111,17 +111,8 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
         <div className="Container App">
           <Title />
+          <Fab className="add-task-button" aria-label="Add">+</Fab>
           <Paper>
-            <Grid container justify="center" className="grid-container" spacing={Number(16)}>
-              <Grid item className="grid-item">
-                <Fab className="add-task-button" aria-label="Add">
-                +
-                </Fab>
-                {/* <Button onClick={this.onClickHandle} color="secondary" variant="outlined">
-                    +
-                </Button> */}
-              </Grid>
-            </Grid>
             <Table>
               <TableHead>
                 <TableRow>
