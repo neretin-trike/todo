@@ -29,6 +29,7 @@ import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { extname } from 'path';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -102,6 +103,286 @@ class CustomTableCell extends Component{
   }
 }
 
+class TaskTable extends Component {
+  render() {
+    return (
+      <Paper>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{width:"1px"}} padding="checkbox">
+                {/* <Checkbox checked={false} /> */}
+              </TableCell>
+              <CustomTableCell>Список задач</CustomTableCell>
+              <CustomTableCell align="right">Приоритет</CustomTableCell>
+              <CustomTableCell align="right">Длительность</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tasks.map(row => (
+              <TableRow 
+                hover={true} 
+                key={row.id}
+              >
+                <TableCell style={{width:"1px"}} padding="checkbox">
+                  <Checkbox />
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.taskName}
+                </TableCell>
+                <TableCell align="right">{row.level}</TableCell>
+                <TableCell align="right">{row.duration}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+          <TableHead>
+            <TableRow>
+              <TableCell style={{width:"1px"}} padding="checkbox">
+                {/* <Checkbox checked={false} /> */}
+              </TableCell>
+              <CustomTableCell>Список задач</CustomTableCell>
+              <CustomTableCell align="right">Приоритет</CustomTableCell>
+              <CustomTableCell align="right">Длительность</CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {doneTasks.map(row => (
+              <TableRow 
+                className="doneTasks" 
+                key={row.id}
+              >
+                <TableCell style={{width:"1px"}} padding="checkbox">
+                  <Checkbox disabled checked/>
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.taskName}
+                </TableCell>
+                <TableCell align="right">{row.level}</TableCell>
+                <TableCell align="right">{row.duration}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>      
+    )
+  }
+}
+
+class AddTaskCard extends Component {
+  render() {
+    return (
+      <Card className="custom-card">
+        <CardHeader 
+          classes={{
+              root: "custom-cardheader",
+              content: "custom-cardheader-title",
+              title: "custom-cardheader-title"
+          }}
+          className=""
+          title="Добавление новой задачи">
+        </CardHeader>
+        <CardContent>
+        <form noValidate autoComplete="off">
+          <TextField
+            required
+            label="Задача"
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <TextField
+            label="Подробное описание"
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            multiline
+            rows="4"
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <Grid container spacing={16}>
+            <Grid item xs={3}>
+              <TextField
+                label="Дни"
+                helperText="Длительность в днях"
+                margin="normal"
+                type="number"
+                fullWidth
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Часы"
+                helperText="Длительность в часах"
+                margin="normal"
+                type="number"
+                fullWidth
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Приоритет"
+                select
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                value="Низкий"
+              >
+                <MenuItem value="Низкий">Низкий</MenuItem>>
+                <MenuItem value="Средний">Средний</MenuItem>>
+                <MenuItem value="Высокий">Высокий</MenuItem>
+              </TextField>
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Файл"
+                margin="normal"
+                variant="outlined"
+                // type="file"
+                value="Имя файла"
+                fullWidth
+                className="custom-file-input"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+          </Grid>
+        </form>
+        </CardContent>
+        <CardActions style={{ float: 'right' }}>
+          <Button variant="outlined" color="primary">
+            Отменить
+          </Button>
+          <Button variant="outlined" color="primary">
+            Сохранить
+          </Button>
+        </CardActions>
+      </Card>
+    )
+  }
+}
+
+class ViewTaskCard extends Component {
+  render() {
+    return (
+      <Card className="custom-card">
+        <CardHeader 
+            title="Просмотр задачи">
+        </CardHeader>  
+        <CardContent>
+          <Grid container spacing={16} alignItems="center">
+            <Grid item xs={4}>
+            <Typography className="custom-subtitle1" variant="subtitle1" gutterBottom>
+              <span className="custom-counter" /> Задача
+            </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                readonly
+                value="Научиться переопределять стили"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+            <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+              <span className="custom-counter" /> Подробное описание
+            </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                readonly
+                multiline
+                rows={4}
+                value="Здесь будет какой-нибудь длинный текст который не влазиет в одну строку, поэтому используется компонент со свойством multiline"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                <span className="custom-counter" /> Время выполнения
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                readonly
+                value="0 д."
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField
+                readonly
+                value="12 ч."
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                <span className="custom-counter" /> Приоритет
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                readonly
+                value="Низкий"
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={4}>
+              <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
+                <span className="custom-counter" /> Файл
+              </Typography>
+            </Grid>
+            <Grid item xs={8}>
+              <TextField
+                readonly
+                value="какой-то-файл.jpg"
+                variant="outlined"
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <SvgIcon color="secondary">
+                        <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                      </SvgIcon>
+                    </InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+        </Grid>
+        </CardContent>
+        <CardActions style={{ float: 'right' }}>
+          <Button variant="outlined" color="primary">
+            Закрыть
+          </Button>
+          <Button variant="outlined" color="primary">
+            Изменить
+          </Button>
+        </CardActions>
+      </Card>
+    )
+  }
+}
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -125,265 +406,9 @@ class App extends Component {
         <div className="Container App">
           <Title />
           <Fab className="add-task-button" aria-label="Add">+</Fab>
-          <Paper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{width:"1px"}} padding="checkbox">
-                    {/* <Checkbox checked={false} /> */}
-                  </TableCell>
-                  <CustomTableCell>Список задач</CustomTableCell>
-                  <CustomTableCell align="right">Приоритет</CustomTableCell>
-                  <CustomTableCell align="right">Длительность</CustomTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {tasks.map(row => (
-                  <TableRow 
-                    hover={true} 
-                    key={row.id}
-                  >
-                   <TableCell style={{width:"1px"}} padding="checkbox">
-                      <Checkbox />
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.taskName}
-                    </TableCell>
-                    <TableCell align="right">{row.level}</TableCell>
-                    <TableCell align="right">{row.duration}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-              <TableHead>
-                <TableRow>
-                  <TableCell style={{width:"1px"}} padding="checkbox">
-                    {/* <Checkbox checked={false} /> */}
-                  </TableCell>
-                  <TableCell>Сделанные задачи</TableCell>
-                  <TableCell align="right">Приоритет</TableCell>
-                  <TableCell align="right">Длительность</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {doneTasks.map(row => (
-                  <TableRow 
-                    className="doneTasks" 
-                    key={row.id}
-                  >
-                   <TableCell style={{width:"1px"}} padding="checkbox">
-                      <Checkbox disabled checked/>
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {row.taskName}
-                    </TableCell>
-                    <TableCell align="right">{row.level}</TableCell>
-                    <TableCell align="right">{row.duration}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
-          <Card className="custom-card">
-            <CardHeader 
-               classes={{
-                  root: "custom-cardheader",
-                  content: "custom-cardheader-title",
-                  title: "custom-cardheader-title"
-               }}
-               className=""
-               title="Добавление новой задачи">
-            </CardHeader>
-            <CardContent>
-            <form noValidate autoComplete="off">
-              <TextField
-                required
-                label="Задача"
-                margin="normal"
-                variant="outlined"
-                fullWidth
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <TextField
-                label="Подробное описание"
-                margin="normal"
-                variant="outlined"
-                fullWidth
-                multiline
-                rows="4"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <Grid container spacing={16}>
-                <Grid item xs={3}>
-                  <TextField
-                    label="Дни"
-                    helperText="Длительность в днях"
-                    margin="normal"
-                    type="number"
-                    fullWidth
-                    variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    label="Часы"
-                    helperText="Длительность в часах"
-                    margin="normal"
-                    type="number"
-                    fullWidth
-                    variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    label="Приоритет"
-                    select
-                    margin="normal"
-                    variant="outlined"
-                    fullWidth
-                    value="Низкий"
-                  >
-                    <MenuItem value="Низкий">Низкий</MenuItem>>
-                    <MenuItem value="Средний">Средний</MenuItem>>
-                    <MenuItem value="Высокий">Высокий</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    label="Файл"
-                    margin="normal"
-                    variant="outlined"
-                    // type="file"
-                    value="Имя файла"
-                    fullWidth
-                    className="custom-file-input"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </form>
-            </CardContent>
-            <CardActions style={{ float: 'right' }}>
-              <Button variant="outlined" color="primary">
-                Отменить
-              </Button>
-              <Button variant="outlined" color="primary">
-                Сохранить
-              </Button>
-            </CardActions>
-          </Card>
-          <Card className="custom-card">
-            <CardHeader 
-               title="Просмотр задачи">
-            </CardHeader>  
-            <CardContent>
-              <Grid container spacing={16} alignItems="center">
-                <Grid item xs={4}>
-                <Typography className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                  <span className="custom-counter" /> Задача
-                </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    readonly
-                    value="Научиться переопределять стили"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                  <span className="custom-counter" /> Подробное описание
-                </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    readonly
-                    multiline
-                    rows={4}
-                    value="Здесь будет какой-нибудь длинный текст который не влазиет в одну строку, поэтому используется компонент со свойством multiline"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                    <span className="custom-counter" /> Время выполнения
-                  </Typography>
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    readonly
-                    value="0 д."
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    readonly
-                    value="12 ч."
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                    <span className="custom-counter" /> Приоритет
-                  </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    readonly
-                    value="Низкий"
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                    <span className="custom-counter" /> Файл
-                  </Typography>
-                </Grid>
-                <Grid item xs={8}>
-                  <TextField
-                    readonly
-                    value="какой-то-файл.jpg"
-                    variant="outlined"
-                    fullWidth
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <SvgIcon color="secondary">
-                            <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
-                          </SvgIcon>
-                        </InputAdornment>
-                      )
-                    }}
-                  />
-                </Grid>
-            </Grid>
-            </CardContent>
-            <CardActions style={{ float: 'right' }}>
-              <Button variant="outlined" color="primary">
-                Закрыть
-              </Button>
-              <Button variant="outlined" color="primary">
-                Изменить
-              </Button>
-            </CardActions>
-          </Card>
+          <TaskTable />
+          <AddTaskCard />
+          <ViewTaskCard />
         </div>
       </MuiThemeProvider>
     )
