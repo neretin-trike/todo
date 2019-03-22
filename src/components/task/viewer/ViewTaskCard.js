@@ -13,6 +13,24 @@ import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
+class CustomTypographyCard extends Component {
+  render() {
+    let children = this.props.children;
+    return (
+      <Typography 
+        classes={{
+          root: "root",
+          subtitle1: "custom-subtitle1"
+        }}
+        variant="subtitle1" 
+        gutterBottom 
+      >
+        <span className="custom-counter" />{children}
+      </Typography>
+    )
+  }
+}
+
 class ViewTaskCard extends Component {
     render() {
       return (
@@ -23,9 +41,7 @@ class ViewTaskCard extends Component {
           <CardContent>
             <Grid container spacing={16} alignItems="center">
               <Grid item xs={4}>
-              <Typography className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                <span className="custom-counter" /> Задача
-              </Typography>
+                <CustomTypographyCard>Задача</CustomTypographyCard>
               </Grid>
               <Grid item xs={8}>
                 <TextField
@@ -36,9 +52,7 @@ class ViewTaskCard extends Component {
                 />
               </Grid>
               <Grid item xs={4}>
-              <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                <span className="custom-counter" /> Подробное описание
-              </Typography>
+              <CustomTypographyCard>Подробное описание</CustomTypographyCard>
               </Grid>
               <Grid item xs={8}>
                 <TextField
@@ -51,9 +65,7 @@ class ViewTaskCard extends Component {
                 />
               </Grid>
               <Grid item xs={4}>
-                <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                  <span className="custom-counter" /> Время выполнения
-                </Typography>
+              <CustomTypographyCard>Время выполнения</CustomTypographyCard>
               </Grid>
               <Grid item xs={4}>
                 <TextField
@@ -72,9 +84,7 @@ class ViewTaskCard extends Component {
                 />
               </Grid>
               <Grid item xs={4}>
-                <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                  <span className="custom-counter" /> Приоритет
-                </Typography>
+              <CustomTypographyCard>Приоритет</CustomTypographyCard>
               </Grid>
               <Grid item xs={8}>
                 <TextField
@@ -85,9 +95,7 @@ class ViewTaskCard extends Component {
                 />
               </Grid>
               <Grid item xs={4}>
-                <Typography  className="custom-subtitle1" variant="subtitle1" gutterBottom>
-                  <span className="custom-counter" /> Файл
-                </Typography>
+              <CustomTypographyCard>Файл</CustomTypographyCard>
               </Grid>
               <Grid item xs={8}>
                 <TextField

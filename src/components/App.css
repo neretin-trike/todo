@@ -10,13 +10,10 @@ html, body, #root {
   --main-color-darken: #8a022d;
 }
 
-.Container {
+.container {
   margin: 0 auto;
   max-width: 1070px;
   padding: 0 15px;
-}
 
-.Container h3 {
-  text-align: left;
+  position: relative;
 }
-

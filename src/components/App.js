@@ -44,10 +44,9 @@ class App extends Component {
    }
 
   render() {
-    // const { classes } = this.props;
     return (
       <MuiThemeProvider theme={theme}>
-        <main className="Container App">
+        <main className="container App">
           <Title />
           <AddButton />
           <TaskTable />

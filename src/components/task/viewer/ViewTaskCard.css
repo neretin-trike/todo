@@ -1,9 +1,9 @@
 .custom-card {
-    margin: 25px 0;
-  }
+  margin: 25px 0;
+}
   
-.custom-subtitle1 {
-    color: #3d5afe !important;
-    font-weight: 500 !important;
-  }
+.root.custom-subtitle1 {
+  color: #3d5afe;
+  font-weight: 500;
+}
   

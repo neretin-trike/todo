@@ -1,16 +1,20 @@
-.table-head-tasks {
-    color: #536dfe !important;
-  }
-  
-.doneTasks th,
-.doneTasks td {
+.root.table-head-tasks {
+  color: #536dfe;
+}
+
+.table-row {
+    cursor: pointer;
+}
+
+.done-task th,
+.done-task td {
     position: relative;
     color: #27272785;
     font-style: italic;
 }
 
-.doneTasks th::after,
-.doneTasks td::after {  
+.done-task th::after,
+.done-task td::after {  
     content: '';
     display: block;
     position: absolute;

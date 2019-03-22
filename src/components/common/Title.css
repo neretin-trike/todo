@@ -1,17 +1,16 @@
-tbody tr {
-  cursor: pointer;
-}
 
-.App .title{
+.title{
     margin: 24px 0;
   }
   
-.App .titleIcon {
+.root.title-icon {
+    color: #3d5afe;
     font-size: 54px;
-  }
+}
   
-.App  .typography-header {
-    display: inline-block !important;
-    color: #3d5afe !important;
-    font-weight: 500 !important;
+.root.title-typography {
+    text-align: left;
+    display: inline-block;
+    color: #3d5afe;
+    font-weight: 500;
 }

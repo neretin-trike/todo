@@ -3,8 +3,6 @@ import * as ReactRouterDOM from "react-router-dom";
 import './AddTaskCard.css';
 
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -12,7 +10,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
 class AddTaskCard extends Component {
     render() {
@@ -24,7 +21,6 @@ class AddTaskCard extends Component {
                 content: "custom-cardheader-title",
                 title: "custom-cardheader-title"
             }}
-            className=""
             title="Добавление новой задачи">
           </CardHeader>
           <CardContent>
@@ -96,10 +92,8 @@ class AddTaskCard extends Component {
                   label="Файл"
                   margin="normal"
                   variant="outlined"
-                  // type="file"
                   value="Имя файла"
                   fullWidth
-                  className="custom-file-input"
                   InputLabelProps={{
                     shrink: true,
                   }}

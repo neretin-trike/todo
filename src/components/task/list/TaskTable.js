@@ -34,7 +34,7 @@ class CustomTableHeadCell extends Component{
     let child = this.props.children;
     let {...props} = this.props;
     return (
-      <TableCell {...props} className="table-head-tasks">{child}</TableCell>
+      <TableCell {...props} classes={{root: "root table-head-tasks"}} >{child}</TableCell>
     )
   }
 }
@@ -47,7 +47,6 @@ class TaskTable extends Component {
           <TableHead>
             <TableRow>
               <TableCell style={{width:"1px"}} padding="checkbox">
-                {/* <Checkbox checked={false} /> */}
               </TableCell>
               <CustomTableHeadCell>Список задач</CustomTableHeadCell>
               <CustomTableHeadCell align="right">Приоритет</CustomTableHeadCell>
@@ -56,7 +55,10 @@ class TaskTable extends Component {
           </TableHead>
           <TableBody>
             {tasks.map(row => (
-              <TableRow 
+              <TableRow
+                classes = {{
+                  root: "table-row"
+                }}
                 hover={true} 
                 key={row.id}
               >
@@ -74,7 +76,6 @@ class TaskTable extends Component {
           <TableHead>
             <TableRow>
               <TableCell style={{width:"1px"}} padding="checkbox">
-                {/* <Checkbox checked={false} /> */}
               </TableCell>
               <CustomTableHeadCell>Список задач</CustomTableHeadCell>
               <CustomTableHeadCell align="right">Приоритет</CustomTableHeadCell>
@@ -84,7 +85,9 @@ class TaskTable extends Component {
           <TableBody>
             {doneTasks.map(row => (
               <TableRow 
-                className="doneTasks" 
+                classes = {{
+                  root: "table-row done-task"
+                }}
                 key={row.id}
               >
                 <TableCell style={{width:"1px"}} padding="checkbox">

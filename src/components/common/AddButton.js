@@ -7,7 +7,13 @@ import Fab from '@material-ui/core/Fab';
 class AddButton extends Component {
     render() {
         return (
-          <Fab className="add-task-button" aria-label="Add">+</Fab>
+          <Fab 
+            classes={{
+              root: "add-button root",
+              label: "add-button-label"
+            }}
+            aria-label="Add"
+          >+</Fab>
         )
     }
 }
