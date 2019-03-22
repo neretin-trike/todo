@@ -1,0 +1,22 @@
+.table-head-tasks {
+    color: #536dfe !important;
+  }
+  
+.doneTasks th,
+.doneTasks td {
+    position: relative;
+    color: #27272785;
+    font-style: italic;
+}
+
+.doneTasks th::after,
+.doneTasks td::after {  
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 24px;
+    width: 100%;
+    height: 1px;
+    background-color: #27272785;
+}
