@@ -3,7 +3,7 @@
   }
   
 .custom-cardheader {
-  background-color: #3d5afe;
+  background-color: var(--main-color);
 }
 
 .custom-cardheader .custom-cardheader-title {

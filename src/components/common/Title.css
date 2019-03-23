@@ -4,13 +4,13 @@
   }
   
 .root.title-icon {
-    color: #3d5afe;
+    color: var(--main-color);
     font-size: 54px;
 }
   
 .root.title-typography {
     text-align: left;
     display: inline-block;
-    color: #3d5afe;
+    color: var(--main-color);
     font-weight: 500;
 }

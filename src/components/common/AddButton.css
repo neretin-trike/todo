@@ -8,7 +8,7 @@
 }
 
 .add-button .add-button-label {
-    color: #3d5afe;
+    color: var(--main-color);
     font-size: 35px;
 }
   

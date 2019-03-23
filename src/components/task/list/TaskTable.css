@@ -1,5 +1,5 @@
 .root.table-head-tasks {
-  color: #536dfe;
+    color: var(--main-color)
 }
 
 .table-row {
@@ -9,7 +9,7 @@
 .done-task th,
 .done-task td {
     position: relative;
-    color: #27272785;
+    color: var(--opacity-dark);
     font-style: italic;
 }
 
@@ -22,5 +22,5 @@
     top: 24px;
     width: 100%;
     height: 1px;
-    background-color: #27272785;
+    background-color: var(--opacity-dark);
 }

@@ -3,7 +3,7 @@
 }
   
 .root.custom-subtitle1 {
-  color: #3d5afe;
+  color: var(--main-color);
   font-weight: 500;
 }
   

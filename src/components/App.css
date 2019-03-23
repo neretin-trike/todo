@@ -5,11 +5,6 @@ html, body, #root {
   box-sizing: border-box;
 }
 
-:root {
-  --main-color: #cc0041;
-  --main-color-darken: #8a022d;
-}
-
 .container {
   margin: 0 auto;
   max-width: 1070px;
