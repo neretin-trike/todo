@@ -4,6 +4,8 @@ import './App.css';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
+import { PALETE } from '../constants/config.js';
+
 import Title from './common/Title';
 import AddButton from './common/AddButton';
 import TaskTable from './task/list/TaskTable';
@@ -16,18 +18,7 @@ const Switch = ReactRouterDOM.Switch;
 const Link = ReactRouterDOM.Link;
 const Redirect = ReactRouterDOM.Redirect;
 
-const theme = createMuiTheme({
-  palette: {
-    primary:{
-      main: '#3d5afe',
-      dark: '#536dfe',
-    }, 
-    secondary: {
-      main: '#3d5afe',
-      light: '#536dfe',
-    },
-  },
-});
+const theme = createMuiTheme(PALETE);
 
 class App extends Component {
   constructor(props) {
