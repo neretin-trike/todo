@@ -39,69 +39,67 @@ class CustomTableHeadCell extends Component{
   }
 }
 
+class TaskList extends Component {
+  render () {
+    let {style, options, tasks} = this.props;
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell style={{width:"1px"}} padding="checkbox">
+            </TableCell>
+            <CustomTableHeadCell>Список задач</CustomTableHeadCell>
+            <CustomTableHeadCell align="right">Приоритет</CustomTableHeadCell>
+            <CustomTableHeadCell align="right">Длительность</CustomTableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {tasks.map(row => (
+            <TableRow
+              classes = {{
+                root: style
+              }}
+              hover={true} 
+              key={row.id}
+            >
+              <TableCell style={{width:"1px"}} padding="checkbox">
+                <Checkbox disabled={options.disabled} checked={options.checked} />
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.taskName}
+              </TableCell>
+              <TableCell align="right">{row.level}</TableCell>
+              <TableCell align="right">{row.duration}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    )
+
+  }
+}
+
+
 class TaskTable extends Component {
   render() {
     return (
       <Paper>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{width:"1px"}} padding="checkbox">
-              </TableCell>
-              <CustomTableHeadCell>Список задач</CustomTableHeadCell>
-              <CustomTableHeadCell align="right">Приоритет</CustomTableHeadCell>
-              <CustomTableHeadCell align="right">Длительность</CustomTableHeadCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tasks.map(row => (
-              <TableRow
-                classes = {{
-                  root: "table-row"
-                }}
-                hover={true} 
-                key={row.id}
-              >
-                <TableCell style={{width:"1px"}} padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.taskName}
-                </TableCell>
-                <TableCell align="right">{row.level}</TableCell>
-                <TableCell align="right">{row.duration}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{width:"1px"}} padding="checkbox">
-              </TableCell>
-              <CustomTableHeadCell>Список задач</CustomTableHeadCell>
-              <CustomTableHeadCell align="right">Приоритет</CustomTableHeadCell>
-              <CustomTableHeadCell align="right">Длительность</CustomTableHeadCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {doneTasks.map(row => (
-              <TableRow 
-                classes = {{
-                  root: "table-row done-task"
-                }}
-                key={row.id}
-              >
-                <TableCell style={{width:"1px"}} padding="checkbox">
-                  <Checkbox disabled checked/>
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.taskName}
-                </TableCell>
-                <TableCell align="right">{row.level}</TableCell>
-                <TableCell align="right">{row.duration}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <TaskList 
+          tasks={tasks} 
+          options = {{
+           checked:false,
+           disabled:false,
+          }}
+          style = {"table-row"}
+        />
+        <TaskList 
+          tasks={doneTasks} 
+          options = {{
+           checked:true,
+           disabled:true,
+          }}
+          style = {"table-row done-task"}
+        />
       </Paper>      
     )
   }
