@@ -8,17 +8,17 @@ function getInitializedApi(url, myMethod = "GET", data = {}) {
   let myHeaders = new Headers();
   myHeaders.append("Authorization", `Bearer ${store.state.user.token}`);
 
-  let initOptions = {
-      mode:'cors',
-      cache: 'default',
-      method: myMethod,
-      header: myHeaders,
-      body: data,
-  }
-
   if (initOptions.method === "POST") {
       myHeaders.append("Content-Type",'multipart/form-data')
   }
+
+  let initOptions = {
+    mode:'cors',
+    cache: 'default',
+    method: myMethod,
+    header: myHeaders,
+    body: data,
+}
 
   return ( api = fetch(BASE_URL+url, initOptions) );
 }
