@@ -16,12 +16,12 @@ function createData(taskName, level, duration) {
   return { id, taskName, level, duration};
 }
 
-const tasks = [
+const tasksPlanned = [
   createData('Сделать проект ToDo', "высокий", "1 д."),
   createData('Научиться переопределять стили', "средний", "12 ч.", "18.03.2019"),
   createData('Настроить стили', "низкий", "6 ч."),
 ];
-const doneTasks = [
+const tasksDone = [
   createData('Добавить чекбоксы', "средний", "1 ч."),
   createData('Добавить таблицу', "высокий", "2 ч."),
 ];
@@ -85,7 +85,7 @@ class TaskTable extends Component {
     return (
       <Paper>
         <TaskList 
-          tasks={tasks} 
+          tasks={tasksPlanned} 
           options = {{
            checked:false,
            disabled:false,
@@ -93,7 +93,7 @@ class TaskTable extends Component {
           style = {"table-row"}
         />
         <TaskList 
-          tasks={doneTasks} 
+          tasks={tasksDone} 
           options = {{
            checked:true,
            disabled:true,
