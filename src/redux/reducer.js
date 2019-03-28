@@ -19,16 +19,20 @@ const initialState = {
 const reducer = function(state = initialState, action) {
   switch (action.type) {
     case "SET_STATE":
-        return action.state;
+        return state;
     case "MARK_TASK_AS_DONE":
-        return Object.assign({}, state, {
-            taskDone: {},
-            taskPlanned: {}
-        })
+        let items = [...state.tasksPlanned];
+        let itemsArr = items.map( e => e.id);
+        let indexFound = itemsArr.indexOf(+action.taskDone);
+        items.splice(indexFound, 1);
+
+        return {...state, 
+            tasksPlanned: items,
+        }
     case "MARK_TASK_AS_PLANNED":
         return Object.assign({}, state, {
-            taskDone: {},
-            taskPlanned: {}
+            tasksPlanned: {},
+            tasksDone: {}
         })
   }
   return state;

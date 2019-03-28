@@ -55,6 +55,7 @@ class TaskList extends Component {
               key={row.id} >
               <TableCell style={{width:"1px"}} padding="checkbox">
                 <Checkbox 
+                  id = {row.id.toString()}
                   // disabled={options.disabled} 
                   checked={row.isDone} 
                   onChange={this.props.changeHandle} />
@@ -112,9 +113,7 @@ const mapDispatchToProps = function(dispatch, ownProps) {
   return {
     changeHandle: function(event) {
       const target = event.target;
-      const value = target.type === 'checkbox' ? target.checked : target.value;
-      console.log(target);
-      dispatch(markTaskAsDone({}, {}) );
+      dispatch(markTaskAsDone(target.id, {}) );
     }
   }
 }
