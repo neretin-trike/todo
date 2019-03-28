@@ -1,11 +1,11 @@
-let markTaskAsDone = function (taskDone, taskPlanned) {
+const markTaskAsDone = function (taskDone, taskPlanned) {
     return {
       type: "MARK_TASK_AS_DONE",
       taskDone,
       taskPlanned
     }
   };
-let markTaskAsPlanned = function (taskDone, taskPlanned) {
+const markTaskAsPlanned = function (taskDone, taskPlanned) {
     return {
       type: "MARK_TASK_AS_PLANNED",
       taskDone,
@@ -13,4 +13,4 @@ let markTaskAsPlanned = function (taskDone, taskPlanned) {
     }
   };
    
-export {markTaskAsDone, markTaskAsPlanned};
+export { markTaskAsDone, markTaskAsPlanned };

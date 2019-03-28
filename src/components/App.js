@@ -12,6 +12,11 @@ import TaskTable from './task/list/TaskTable';
 import AddTaskCard from './task/creator/AddTaskCard';
 import ViewTaskCard from './task/viewer/ViewTaskCard';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../redux/reducer';
+const store = createStore(reducers);
+
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
 const Switch = ReactRouterDOM.Switch;
@@ -32,19 +37,22 @@ class App extends Component {
 
   onClickHandle(e) {
     console.log("Произошёл клик"); 
-   }
+    }
 
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
-        <main className="container App">
-          <Title />
-          <AddButton />
-          <TaskTable />
-          <AddTaskCard />
-          <ViewTaskCard />
-        </main>
-      </MuiThemeProvider>
+      <Provider store={store}>
+        <MuiThemeProvider theme={theme}>
+          <main className="container App">
+            <Title />
+            <AddButton />
+            <TaskTable />
+            <AddTaskCard />
+            <ViewTaskCard />
+          </main>
+        </MuiThemeProvider>
+      </Provider>
+
     )
   }
 }
