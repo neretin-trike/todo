@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.done-task svg {
+    color: var(--opacity-dark);
+}
+
 .done-task th,
 .done-task td {
     position: relative;

@@ -3,7 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './TaskTable.css';
 
 import { connect } from "react-redux";
-import { markTaskAsDone } from "../../../redux/actions";
+import { markTaskAsDone, markTaskAsPlanned } from "../../../redux/actions";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,7 +36,9 @@ class TaskList extends Component {
     let {style, options, tasks} = this.props;
     return (
       <Table>
-        <TableHead>
+        {
+          !!tasks.length && 
+          <TableHead>
           <TableRow>
             <TableCell style={{width:"1px"}} padding="checkbox">
             </TableCell>
@@ -45,6 +47,8 @@ class TaskList extends Component {
             <CustomTableHeadCell align="right">Длительность</CustomTableHeadCell>
           </TableRow>
         </TableHead>
+        }
+
         <TableBody>
           {tasks.map(row => (
             <TableRow
@@ -80,7 +84,7 @@ class TaskTable extends Component {
     return (
       <Paper>
         <TaskList 
-          changeHandle = {this.props.changeHandle}
+          changeHandle = {this.props.changeHandlePlannedTask}
           tasks={this.props.tasksPlanned} 
           options = {{
            checked:false,
@@ -89,6 +93,7 @@ class TaskTable extends Component {
           style = {"table-row"}
         />
         <TaskList 
+          changeHandle = {this.props.changeHandleDoneTask}
           tasks={this.props.tasksDone} 
           options = {{
            checked:true,
@@ -111,9 +116,13 @@ function mapStateToProps(store) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    changeHandle: function(event) {
+    changeHandlePlannedTask: function(event) {
       const target = event.target;
-      dispatch(markTaskAsDone(target.id, {}) );
+      dispatch(markTaskAsDone(target.id) );
+    },
+    changeHandleDoneTask: function(event) {
+      const target = event.target;
+      dispatch(markTaskAsPlanned(target.id) );
     }
   }
 }

@@ -16,22 +16,22 @@ const initialState = {
     ]
 }
 
-function getFilterPlannedItems(tasksPlanned, id) {
-    let doneItem = {};
+function getFilterItems(tasksPlanned, id) {
+    let changeItem = {};
     let plannedItems = tasksPlanned;
-    let filterPlannedItems = plannedItems.filter( (item) => {
+    let filterItems = plannedItems.filter( (item) => {
         if (item.id === id) {
-            doneItem = item;
+            changeItem = item;
         } 
         return item.id !== id;
     } )
 
-    return {filterPlannedItems, doneItem};
+    return {filterItems, changeItem};
 }
 
-function getNewDoneItems(taskDone, doneItem) {
+function getNewItems(taskDone, doneItem, isDone) {
     let doneItems = taskDone;
-    doneItem.isDone = true;
+    doneItem.isDone = isDone;
     doneItems.push(doneItem);
 
     return doneItems;
@@ -41,22 +41,24 @@ const reducer = function(state = initialState, action) {
   switch (action.type) {
     case "SET_STATE":
         return state;
-    case "MARK_TASK_AS_DONE":
-
-        let {filterPlannedItems, doneItem} = getFilterPlannedItems([...state.tasksPlanned], +action.taskDone)
-        
-        let newDoneItems = getNewDoneItems( [...state.tasksDone], doneItem)
+    case "MARK_TASK_AS_DONE": {
+        let {filterItems: plannedItems, changeItem} = getFilterItems([...state.tasksPlanned], +action.idTask)
+        let newDoneItems = getNewItems( [...state.tasksDone], changeItem, true)
 
         return {...state, 
-            tasksPlanned: filterPlannedItems,
+            tasksPlanned: plannedItems,
             tasksDone: newDoneItems 
         }
-    case "MARK_TASK_AS_PLANNED":
+    }
+    case "MARK_TASK_AS_PLANNED": {
+        let {filterItems: doneItems, changeItem} = getFilterItems([...state.tasksDone], +action.idTask)
+        let newPlannedItems = getNewItems( [...state.tasksPlanned], changeItem, false)
 
         return Object.assign({}, state, {
-            tasksPlanned: {},
-            tasksDone: {}
+            tasksPlanned: newPlannedItems,
+            tasksDone: doneItems
         })
+    }
   }
   return state;
 }

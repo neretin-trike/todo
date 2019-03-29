@@ -1,15 +1,13 @@
-const markTaskAsDone = function (taskDone, taskPlanned) {
+const markTaskAsDone = function (idTask) {
     return {
       type: "MARK_TASK_AS_DONE",
-      taskDone,
-      taskPlanned
+      idTask,
     }
   };
-const markTaskAsPlanned = function (taskDone, taskPlanned) {
+const markTaskAsPlanned = function (idTask) {
     return {
       type: "MARK_TASK_AS_PLANNED",
-      taskDone,
-      taskPlanned
+      idTask,
     }
   };
    
