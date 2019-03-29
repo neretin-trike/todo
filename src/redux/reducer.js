@@ -21,13 +21,23 @@ const reducer = function(state = initialState, action) {
     case "SET_STATE":
         return state;
     case "MARK_TASK_AS_DONE":
-        let items = [...state.tasksPlanned];
-        let itemsArr = items.map( e => e.id);
-        let indexFound = itemsArr.indexOf(+action.taskDone);
-        items.splice(indexFound, 1);
+        let plannedItems = [...state.tasksPlanned];
+
+        let doneItem = {};
+        let filterPlannedItems = plannedItems.filter( (item) => {
+            if (item.id === +action.taskDone) {
+                doneItem = item;
+            } 
+            return item.id !== +action.taskDone;
+        } )
+
+        let doneItems = [...state.tasksDone];
+        doneItem.isDone = true;
+        doneItems.push(doneItem);
 
         return {...state, 
-            tasksPlanned: items,
+            tasksPlanned: filterPlannedItems,
+            tasksDone: doneItems 
         }
     case "MARK_TASK_AS_PLANNED":
         return Object.assign({}, state, {
