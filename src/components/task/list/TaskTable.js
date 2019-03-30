@@ -81,12 +81,10 @@ class TaskList extends Component {
 
 class TaskTable extends Component {
   componentDidMount() {
-    let formData = new FormData();
-    formData.append("username","trike");
-    formData.append("password", "123456");
-    loginUser(formData).
-      then( resp => console.log(resp) );
-      // then( json => console.dir(json)  );
+    let data = {'username':"trike",'password':"123456"};
+    loginUser(data).
+      then( resp => resp.json() ).
+      then( json => console.dir(json) );
   }
   render() {
     return (

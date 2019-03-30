@@ -5,22 +5,20 @@ let api = null;
 function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
   if (api) return api; // return initialized api if already initialized.
 
-  let myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer`);
+//   let myHeaders = new Headers();
 
-  if (myMethod === "POST") {
-      myHeaders.append("Content-Type",'multipart/form-data')
-  }
 
-  let initOptions = {
-    mode:'cors',
-    cache: 'default',
-    method: myMethod,
-    header: myHeaders,
-    body: data,
-}
+    let initOptions = {
+        method: myMethod,
+        mode: "cors",
+        headers: {
+            "Content-Type":'application/json'
+        },
+        body:  JSON.stringify(data),
+    }
 
-  return ( api = fetch(BASE_URL+apiUrl, initOptions) );
+    api = fetch(BASE_URL+apiUrl, initOptions);
+    return api;
 }
 
 function getMethod(url) {
