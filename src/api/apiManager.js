@@ -7,7 +7,6 @@ function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
 
 //   let myHeaders = new Headers();
 
-
     let initOptions = {
         method: myMethod,
         mode: "cors",
@@ -18,7 +17,13 @@ function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
     }
 
     api = fetch(BASE_URL+apiUrl, initOptions);
-    return api;
+    return api.then( res => {
+        if (res.ok === false) {
+            throw new Error(res.status + " : " + res.statusText);
+        } else {
+            return res.json();
+        }
+    });
 }
 
 function getMethod(url) {

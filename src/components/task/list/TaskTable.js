@@ -83,8 +83,7 @@ class TaskTable extends Component {
   componentDidMount() {
     let data = {'username':"trike",'password':"123456"};
     loginUser(data).
-      then( resp => resp.json() ).
-      then( json => console.dir(json) );
+      then( json => console.dir(json), err => alert(err) );
   }
   render() {
     return (
