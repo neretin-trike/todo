@@ -1,5 +1,5 @@
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "http://127.0.0.1:8000";
 
 const PALETE = {
     palette: {

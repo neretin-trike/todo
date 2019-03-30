@@ -1,9 +1,9 @@
 import React, { Component, Children } from 'react';
-import * as ReactRouterDOM from "react-router-dom";
 import './TaskTable.css';
 
 import { connect } from "react-redux";
-import { markTaskAsDone, markTaskAsPlanned } from "../../../redux/actions";
+import { markTaskAsDone, markTaskAsPlanned } from "../../../actions/actions";
+import { loginUser} from "../../../api/apiManager";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -80,6 +80,14 @@ class TaskList extends Component {
 
 
 class TaskTable extends Component {
+  componentDidMount() {
+    let formData = new FormData();
+    formData.append("username","trike");
+    formData.append("password", "123456");
+    loginUser(formData).
+      then( resp => console.log(resp) );
+      // then( json => console.dir(json)  );
+  }
   render() {
     return (
       <Paper>

@@ -2,13 +2,13 @@ import { BASE_URL } from '../constants/config.js';
 
 let api = null;
 
-function getInitializedApi(url, myMethod = "GET", data = {}) {
+function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
   if (api) return api; // return initialized api if already initialized.
 
   let myHeaders = new Headers();
-  myHeaders.append("Authorization", `Bearer ${store.state.user.token}`);
+  myHeaders.append("Authorization", `Bearer`);
 
-  if (initOptions.method === "POST") {
+  if (myMethod === "POST") {
       myHeaders.append("Content-Type",'multipart/form-data')
   }
 
@@ -20,7 +20,7 @@ function getInitializedApi(url, myMethod = "GET", data = {}) {
     body: data,
 }
 
-  return ( api = fetch(BASE_URL+url, initOptions) );
+  return ( api = fetch(BASE_URL+apiUrl, initOptions) );
 }
 
 function getMethod(url) {
@@ -56,5 +56,15 @@ function editTask(id, formData) {
 }
 
 function deleteTask(id) {
- return deleteMethod(`/api/task/${id}`); 
+    return deleteMethod(`/api/task/${id}`); 
 }
+
+function registerUser(formData) {
+    return getMethod(`/api/register/?id=99&username=twink&email=ad@m.ru&admin=true`);
+}
+
+function loginUser(formData) {
+    return postMethod(`/api/login_check`,formData);
+}
+
+export {loginUser};

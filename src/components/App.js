@@ -13,9 +13,7 @@ import AddTaskCard from './task/creator/AddTaskCard';
 import ViewTaskCard from './task/viewer/ViewTaskCard';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducers from '../redux/reducer';
-const store = createStore(reducers);
+import store from '../store';
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
