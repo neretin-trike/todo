@@ -144,13 +144,17 @@ class AddTaskCard extends Component {
   }
 
   function mapStateToProps(store) {
-    return {
-      addFormValues: store.addFormValues
-    };
+    return store;
   }
 
-  const mapDispatchToProps = function(dispatch, ownProps) {
+  const mergeProps = (stateProps, dispatcProps) => {
+    const {addFormValues} = stateProps;
+    const {dispatch} = dispatcProps;
+
+    console.dir(dispatch)
+
     return {
+      addFormValues,
       addClickHandle: function(event) {
         let data = {'username':"trike",'password':"123456"};
         loginUser(data).
@@ -158,8 +162,7 @@ class AddTaskCard extends Component {
             let token = json.token;
             
             let formData = new FormData();
-
-            let object = store.getState().addFormValues;
+            let object = addFormValues;
 
             for(let key in object) {
               formData.append(key, object[key])
@@ -177,4 +180,8 @@ class AddTaskCard extends Component {
     }
   }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(AddTaskCard);
+  const mapDispatchToProps = function(dispatch, ownProps) {
+
+  }
+
+  export default connect(mapStateToProps, null, mergeProps)(AddTaskCard);
