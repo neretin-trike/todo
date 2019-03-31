@@ -3,7 +3,6 @@ import './TaskTable.css';
 
 import { connect } from "react-redux";
 import { markTaskAsDone, markTaskAsPlanned } from "../../../actions/actions";
-import { loginUser, saveTask} from "../../../api/apiManager";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -29,7 +28,6 @@ class CustomTableHeadCell extends Component{W
 class TaskList extends Component {
   constructor(props) {
     super(props);
-    
   }
 
   render () {
@@ -80,32 +78,7 @@ class TaskList extends Component {
 
 
 class TaskTable extends Component {
-  componentDidMount() {
-    let data = {'username':"trike",'password':"123456"};
-    loginUser(data).
-      then( json => {
-        let token = json.token;
-        
-        let formData = new FormData();
 
-        let object = {
-          "description": "123456",
-          "duration_days": "1",
-          "duration_hours": "0",
-          "info": "123",
-          "priority": "0",
-          "userid": "1",
-        }
-        for(let key in object) {
-          formData.append(key, object[key])
-        }
-        console.log(formData);
-        saveTask(formData, token).catch(error => alert(error));
-      }, 
-      err => alert(err) );
-
-    
-  }
   render() {
     return (
       <Paper>

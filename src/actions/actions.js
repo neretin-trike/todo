@@ -11,4 +11,12 @@ const markTaskAsPlanned = function (idTask) {
     }
   };
    
-export { markTaskAsDone, markTaskAsPlanned };
+const changeAddFormValue = function (name, value) {
+  return {
+    type: "CHANGE_ADDFORM_VALUE",
+    name,
+    value,
+  }
+};
+   
+export { markTaskAsDone, markTaskAsPlanned, changeAddFormValue };

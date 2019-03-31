@@ -13,8 +13,17 @@ const initialState = {
     tasksDone: [
         createData('Добавить чекбоксы', "средний", "1 ч.", true),
         createData('Добавить таблицу', "высокий", "2 ч.", true),
-    ]
+    ],
+    addFormValues: {
+        description: "123456",
+        duration_days: "1",
+        duration_hours: "0",
+        info: "123",
+        priority: "0",
+        userid: "1",
+    }
 }
+
 
 function getFilterItems(tasksPlanned, id) {
     let changeItem = {};
@@ -58,6 +67,13 @@ const reducer = function(state = initialState, action) {
             tasksPlanned: newPlannedItems,
             tasksDone: doneItems
         })
+    }
+    case "CHANGE_ADDFORM_VALUE": {
+        let items = {...state.addFormValues};
+        items[action.name] = action.value;
+        return {...state, 
+            addFormValues: items,
+        }
     }
   }
   return state;

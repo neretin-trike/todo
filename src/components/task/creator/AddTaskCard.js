@@ -2,6 +2,11 @@ import React, { Component, Children } from 'react';
 import * as ReactRouterDOM from "react-router-dom";
 import './AddTaskCard.css';
 
+import { connect } from "react-redux";
+import { loginUser, saveTask} from "../../../api/apiManager";
+import { changeAddFormValue } from "../../../actions/actions";
+import store from '../../../store';
+
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -13,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 
 class AddTaskCard extends Component {
     render() {
+      console.log(this.props)
       return (
         <Card className="custom-card">
           <CardHeader 
@@ -24,89 +30,111 @@ class AddTaskCard extends Component {
             title="Добавление новой задачи">
           </CardHeader>
           <CardContent>
-          <form noValidate autoComplete="off">
-            <TextField
-              required
-              label="Задача"
-              margin="normal"
-              variant="outlined"
-              fullWidth
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              label="Подробное описание"
-              margin="normal"
-              variant="outlined"
-              fullWidth
-              multiline
-              rows="4"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <Grid container spacing={16}>
-              <Grid item xs={3}>
-                <TextField
-                  label="Дни"
-                  helperText="Длительность в днях"
-                  margin="normal"
-                  type="number"
-                  fullWidth
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
+            <form noValidate autoComplete="off">
+              <TextField
+                value={this.props.addFormValues.description}
+                name="description"
+                onChange={this.props.changeValueHandle}
+
+                required
+                label="Задача"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                value={this.props.addFormValues.info}
+                name="info"
+                onChange={this.props.changeValueHandle}
+
+                label="Подробное описание"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows="4"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <Grid container spacing={16}>
+                <Grid item xs={3}>
+                  <TextField
+                    value={this.props.addFormValues.duration_days}
+                    name="duration_days"
+                    onChange={this.props.changeValueHandle}
+
+                    label="Дни"
+                    helperText="Длительность в днях"
+                    margin="normal"
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    value={this.props.addFormValues.duration_hours}
+                    name="duration_hours"
+                    onChange={this.props.changeValueHandle}
+
+                    label="Часы"
+                    helperText="Длительность в часах"
+                    margin="normal"
+                    type="number"
+                    fullWidth
+                    variant="outlined"
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Приоритет"
+                    select
+                    margin="normal"
+                    variant="outlined"
+                    fullWidth
+  
+                    value={this.props.addFormValues.priority}
+                    name="priority"
+                    onChange={this.props.changeValueHandle}
+                  >
+                    <MenuItem value="0">Низкий</MenuItem>>
+                    <MenuItem value="1">Средний</MenuItem>>
+                    <MenuItem value="2">Высокий</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    label="Файл"
+                    margin="normal"
+                    variant="outlined"
+                    value="Имя файла"
+                    fullWidth
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={3}>
-                <TextField
-                  label="Часы"
-                  helperText="Длительность в часах"
-                  margin="normal"
-                  type="number"
-                  fullWidth
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
-              <Grid item xs={3}>
-                <TextField
-                  label="Приоритет"
-                  select
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth
-                  value="Низкий"
-                >
-                  <MenuItem value="Низкий">Низкий</MenuItem>>
-                  <MenuItem value="Средний">Средний</MenuItem>>
-                  <MenuItem value="Высокий">Высокий</MenuItem>
-                </TextField>
-              </Grid>
-              <Grid item xs={3}>
-                <TextField
-                  label="Файл"
-                  margin="normal"
-                  variant="outlined"
-                  value="Имя файла"
-                  fullWidth
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </form>
+            </form>
           </CardContent>
           <CardActions style={{ float: 'right' }}>
             <Button variant="outlined" color="primary">
               Отменить
             </Button>
-            <Button variant="outlined" color="primary">
+            <Button 
+              onClick={this.props.addClickHandle}
+              variant="outlined" 
+              color="primary">
               Сохранить
             </Button>
           </CardActions>
@@ -115,5 +143,38 @@ class AddTaskCard extends Component {
     }
   }
 
-  
-  export default AddTaskCard;
+  function mapStateToProps(store) {
+    return {
+      addFormValues: store.addFormValues
+    };
+  }
+
+  const mapDispatchToProps = function(dispatch, ownProps) {
+    return {
+      addClickHandle: function(event) {
+        let data = {'username':"trike",'password':"123456"};
+        loginUser(data).
+          then( json => {
+            let token = json.token;
+            
+            let formData = new FormData();
+
+            let object = store.getState().addFormValues;
+
+            for(let key in object) {
+              formData.append(key, object[key])
+            }
+            saveTask(formData, token).catch(error => alert(error));
+          }, 
+          err => alert(err) );
+
+        alert();
+      },
+      changeValueHandle: function(event) {
+        const target = event.target;
+        dispatch(changeAddFormValue(target.name, target.value) );
+      }
+    }
+  }
+
+  export default connect(mapStateToProps, mapDispatchToProps)(AddTaskCard);
