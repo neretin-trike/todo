@@ -2,18 +2,14 @@ import { BASE_URL } from '../constants/config.js';
 
 let api = null;
 
-function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
-  if (api) return api; // return initialized api if already initialized.
-
-//   let myHeaders = new Headers();
+function getInitializedApi(apiUrl, myMethod = "GET", data = null, myHeaders = null) {
+//   if (api) return api; // return initialized api if already initialized.
 
     let initOptions = {
         method: myMethod,
         mode: "cors",
-        headers: {
-            "Content-Type":'application/json'
-        },
-        body:  JSON.stringify(data),
+        headers: myHeaders,
+        body:  data,
     }
 
     api = fetch(BASE_URL+apiUrl, initOptions);
@@ -26,12 +22,12 @@ function getInitializedApi(apiUrl, myMethod = "GET", data = null) {
     });
 }
 
-function getMethod(url) {
-    return getInitializedApi(url, "GET")
+function getMethod(url, headers) {
+    return getInitializedApi(url, "GET", null ,headers)
 }
 
-function postMethod(url, data) {
-    return getInitializedApi(url, "POST",data)
+function postMethod(url, data, headers) {
+    return getInitializedApi(url, "POST",data, headers)
 }
 
 function deleteMethod(url) {
@@ -50,8 +46,12 @@ function getTask(id = 1) {
     return getMethod(`/api/task/${id}`);
 }
 
-function saveTask(formData) {
-    return postMethod(`/api/task/save`, formData);
+function saveTask(formData, token) {
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+        // "Content-Type": 'multipart/form-data'   
+    }
+    return postMethod(`/api/task/save`, formData, headers);
 }
 
 function editTask(id, formData) {
@@ -67,7 +67,11 @@ function registerUser(formData) {
 }
 
 function loginUser(formData) {
-    return postMethod(`/api/login_check`,formData);
+    let headers = {
+        "Content-Type": 'application/json'   
+    }
+
+    return postMethod(`/api/login_check`, JSON.stringify(formData), headers);
 }
 
-export {loginUser};
+export {loginUser, saveTask};
