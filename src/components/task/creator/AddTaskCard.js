@@ -3,7 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './AddTaskCard.css';
 
 import { connect } from "react-redux";
-import { loginUser, saveTask} from "../../../api/apiManager";
+import { saveTask} from "../../../api/apiManager";
 import { changeAddFormValue } from "../../../actions/actions";
 import store from '../../../store';
 
@@ -35,7 +35,7 @@ class AddTaskCard extends Component {
                 value={this.props.addFormValues.description}
                 name="description"
                 onChange={this.props.changeValueHandle}
-
+                
                 required
                 label="Задача"
                 margin="normal"
@@ -50,6 +50,7 @@ class AddTaskCard extends Component {
                 name="info"
                 onChange={this.props.changeValueHandle}
 
+                required
                 label="Подробное описание"
                 margin="normal"
                 variant="outlined"
@@ -151,27 +152,20 @@ class AddTaskCard extends Component {
     const {addFormValues} = stateProps;
     const {dispatch} = dispatcProps;
 
-    console.dir(dispatch)
-
     return {
       addFormValues,
       addClickHandle: function(event) {
-        let data = {'username':"trike",'password':"123456"};
-        loginUser(data).
-          then( json => {
-            let token = json.token;
-            
-            let formData = new FormData();
-            let object = addFormValues;
+             
+          let token = localStorage.getItem("token");
+          let formData = new FormData();
+          let object = addFormValues;
 
-            for(let key in object) {
-              formData.append(key, object[key])
-            }
-            saveTask(formData, token).catch(error => alert(error));
-          }, 
-          err => alert(err) );
+          for(let key in object) {
+            formData.append(key, object[key])
+          }
 
-        alert();
+          saveTask(formData, token).catch(error => alert(error));
+
       },
       changeValueHandle: function(event) {
         const target = event.target;

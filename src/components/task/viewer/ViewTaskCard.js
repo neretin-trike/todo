@@ -45,7 +45,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={8}>
                 <TextField
-                  readonly
+                  readOnly
                   value="Научиться переопределять стили"
                   variant="outlined"
                   fullWidth
@@ -56,7 +56,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={8}>
                 <TextField
-                  readonly
+                  readOnly
                   multiline
                   rows={4}
                   value="Здесь будет какой-нибудь длинный текст который не влазиет в одну строку, поэтому используется компонент со свойством multiline"
@@ -69,7 +69,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  readonly
+                  readOnly
                   value="0 д."
                   variant="outlined"
                   fullWidth
@@ -77,7 +77,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={4}>
                 <TextField
-                  readonly
+                  readOnly
                   value="12 ч."
                   variant="outlined"
                   fullWidth
@@ -88,7 +88,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={8}>
                 <TextField
-                  readonly
+                  readOnly
                   value="Низкий"
                   variant="outlined"
                   fullWidth
@@ -99,7 +99,7 @@ class ViewTaskCard extends Component {
               </Grid>
               <Grid item xs={8}>
                 <TextField
-                  readonly
+                  readOnly
                   value="какой-то-файл.jpg"
                   variant="outlined"
                   fullWidth

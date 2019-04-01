@@ -15,10 +15,10 @@ const initialState = {
         createData('Добавить таблицу', "высокий", "2 ч.", true),
     ],
     addFormValues: {
-        description: "123456",
-        duration_days: "1",
+        description: "",
+        duration_days: "0",
         duration_hours: "0",
-        info: "123",
+        info: "",
         priority: "0",
         userid: "1",
     }

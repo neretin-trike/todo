@@ -5,6 +5,7 @@ import './App.css';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { PALETE } from '../constants/config.js';
+import { loginUser} from "../api/apiManager";
 
 import Title from './common/Title';
 import AddButton from './common/AddButton';
@@ -24,18 +25,16 @@ const Redirect = ReactRouterDOM.Redirect;
 const theme = createMuiTheme(PALETE);
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    let data = {'username':"trike",'password':"123456"};
+    loginUser(data).
+      then( json => {
+        localStorage.setItem("token", json.token);
 
-    this.state = {
-      filterText: ""
-    };
-    this.onClickHandle = this.onClickHandle.bind(this);
+        
+      }, 
+      err => alert(err) );
   }
-
-  onClickHandle(e) {
-    console.log("Произошёл клик"); 
-    }
 
   render() {
     return (
