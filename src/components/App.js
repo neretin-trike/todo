@@ -5,7 +5,7 @@ import './App.css';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { PALETE } from '../constants/config.js';
-import { loginUser} from "../api/apiManager";
+import { loginUser, getTaskList} from "../api/apiManager";
 
 import Title from './common/Title';
 import AddButton from './common/AddButton';
@@ -15,6 +15,7 @@ import ViewTaskCard from './task/viewer/ViewTaskCard';
 
 import { Provider } from 'react-redux';
 import store from '../store';
+import {setInitalState} from "../actions/actions";
 
 const Router = ReactRouterDOM.BrowserRouter;
 const Route = ReactRouterDOM.Route;
@@ -29,9 +30,13 @@ class App extends Component {
     let data = {'username':"trike",'password':"123456"};
     loginUser(data).
       then( json => {
-        localStorage.setItem("token", json.token);
+        let token = json.token;
+        localStorage.setItem("token", token);
 
-        
+        getTaskList(1, token).
+          then (json => {
+            store.dispatch( setInitalState(json) )
+          });
       }, 
       err => alert(err) );
   }

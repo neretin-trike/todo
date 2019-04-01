@@ -32,6 +32,7 @@ class TaskList extends Component {
 
   render () {
     let {style, options, tasks} = this.props;
+    console.log(tasks);
     return (
       <Table>
         {
@@ -63,10 +64,10 @@ class TaskList extends Component {
                   onChange={this.props.changeHandle} />
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.taskName}
+                {row.description}
               </TableCell>
-              <TableCell align="right">{row.level}</TableCell>
-              <TableCell align="right">{row.duration}</TableCell>
+              <TableCell align="right">{row.additional_data.priority}</TableCell>
+              <TableCell align="right">{row.duration_days} д. {row.duration_hours} ч.</TableCell>
             </TableRow>
           ))}
         </TableBody>

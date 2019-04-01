@@ -17,6 +17,7 @@ function getInitializedApi(apiUrl, myMethod = "GET", data = null, myHeaders = nu
         if (res.ok === false) {
             throw new Error(res.status + " : " + res.statusText);
         } else {
+            console.log(res);
             return res.json();
         }
     });
@@ -38,8 +39,11 @@ function deleteMethod(url) {
 
 
 
-function getTaskList(page = 1) {
-    return getMethod(`/api/task/list/${page}`);
+function getTaskList(page = 1, token) {
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+    }
+    return getMethod(`/api/task/list/${page}`, headers);
 }
 
 function getTask(id = 1) {
@@ -49,7 +53,6 @@ function getTask(id = 1) {
 function saveTask(formData, token) {
     let headers = {
         "Authorization": `Bearer ${token}`,
-        // "Content-Type": 'multipart/form-data'   
     }
     return postMethod(`/api/task/save`, formData, headers);
 }
@@ -70,8 +73,7 @@ function loginUser(formData) {
     let headers = {
         "Content-Type": 'application/json'   
     }
-
     return postMethod(`/api/login_check`, JSON.stringify(formData), headers);
 }
 
-export {loginUser, saveTask};
+export {loginUser, saveTask, getTaskList};

@@ -1,3 +1,10 @@
+const setInitalState = function (taskList) {
+  return {
+    type: "SET_INITIAL_STATE",
+    taskList,
+  }
+};
+
 const markTaskAsDone = function (idTask) {
     return {
       type: "MARK_TASK_AS_DONE",
@@ -19,4 +26,4 @@ const changeAddFormValue = function (name, value) {
   }
 };
    
-export { markTaskAsDone, markTaskAsPlanned, changeAddFormValue };
+export {setInitalState, markTaskAsDone, markTaskAsPlanned, changeAddFormValue };

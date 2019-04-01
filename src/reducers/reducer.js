@@ -1,19 +1,7 @@
-let id = 0;
-function createData(taskName, level, duration, isDone) {
-  id += 1;
-  return { id, taskName, level, duration, isDone};
-}
 
 const initialState = {
-    tasksPlanned: [
-        createData('Сделать проект ToDo', "высокий", "1 д.", false),
-        createData('Научиться переопределять стили', "средний", "12 ч.", false),
-        createData('Настроить стили', "низкий", "6 ч.", false),
-    ],
-    tasksDone: [
-        createData('Добавить чекбоксы', "средний", "1 ч.", true),
-        createData('Добавить таблицу', "высокий", "2 ч.", true),
-    ],
+    tasksPlanned: [],
+    tasksDone: [],
     addFormValues: {
         description: "",
         duration_days: "0",
@@ -48,8 +36,11 @@ function getNewItems(taskDone, doneItem, isDone) {
 
 const reducer = function(state = initialState, action) {
   switch (action.type) {
-    case "SET_STATE":
-        return state;
+    case "SET_INITIAL_STATE": {
+        return {...state,
+            tasksPlanned: action.taskList.tasks
+        };
+    }
     case "MARK_TASK_AS_DONE": {
         let {filterItems: plannedItems, changeItem} = getFilterItems([...state.tasksPlanned], +action.idTask)
         let newDoneItems = getNewItems( [...state.tasksDone], changeItem, true)
