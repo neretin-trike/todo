@@ -116,7 +116,7 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     getTaskInfo: function (event, id) {
       let token = localStorage.getItem("token");
       getTask(id, token).
-        then(json => dispatch(getTaskViewerInfo(json)));
+        then(json =>  dispatch(getTaskViewerInfo(json)))
     },
     changeHandlePlannedTask: function(event, id) {
       dispatch(markTaskAsDone(id));

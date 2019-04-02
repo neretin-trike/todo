@@ -14,6 +14,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import MenuItem from '@material-ui/core/MenuItem';
 
 function getPriorityText(level) {
   let priorityArr = ["Низкий", "Средний", "Высокий"];
@@ -41,6 +42,7 @@ class CustomTypographyCard extends Component {
 class ViewTaskCard extends Component {
     render() {
       let item = this.props.viewFormValues;
+      console.log(item);
       return (
         <Card className="custom-card">
           <CardHeader 
@@ -97,10 +99,15 @@ class ViewTaskCard extends Component {
               <Grid item xs={8}>
                 <TextField
                   readOnly
-                  value={getPriorityText(item.additional_data.priority)}
+                  select
+                  value={item.additional_data.priority}
                   variant="outlined"
                   fullWidth
-                />
+                >
+                    <MenuItem value="0">Низкий</MenuItem>>
+                    <MenuItem value="1">Средний</MenuItem>>
+                    <MenuItem value="2">Высокий</MenuItem>
+                </TextField>
               </Grid>
               <Grid item xs={4}>
               <CustomTypographyCard>Файл</CustomTypographyCard>
@@ -108,15 +115,17 @@ class ViewTaskCard extends Component {
               <Grid item xs={8}>
                 <TextField
                   readOnly
-                  value="какой-то-файл.jpg"
+                  value={item.attachment_filename === null? "Файл отсутствует" : item.attachment_filename }
                   variant="outlined"
                   fullWidth
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <SvgIcon color="secondary">
-                          <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
-                        </SvgIcon>
+                        <a href={"http://localhost:8000"+item.attachment}>
+                          <SvgIcon color="secondary">
+                            <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z" />
+                          </SvgIcon>    
+                        </a>
                       </InputAdornment>
                     )
                   }}

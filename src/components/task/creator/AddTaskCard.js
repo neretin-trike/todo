@@ -118,7 +118,8 @@ class AddTaskCard extends Component {
                     label="Файл"
                     margin="normal"
                     variant="outlined"
-                    value="Имя файла"
+                    type="file"
+                    // value="Имя файла"
                     fullWidth
                     InputLabelProps={{
                       shrink: true,
@@ -158,8 +159,8 @@ class AddTaskCard extends Component {
              
           let token = localStorage.getItem("token");
           let formData = new FormData();
+          
           let object = {...addFormValues};
-
           object.info = object.additional_data.info;
           object.priority = object.additional_data.priority;
           delete object.additional_data;

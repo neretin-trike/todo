@@ -11,11 +11,13 @@ const initialState = {
             priority: "0",
         },
         userid: "1",
+        attachmentFile: "",
     },
     viewFormValues: {
         description: "",
         duration_days: "",
         duration_hours: "",
+        attachment_filename: "",
         additional_data: {
             info: "",
             priority: "",
