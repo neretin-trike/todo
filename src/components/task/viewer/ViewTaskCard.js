@@ -2,6 +2,8 @@ import React, { Component, Children } from 'react';
 import * as ReactRouterDOM from "react-router-dom";
 import './ViewTaskCard.css';
 
+import { connect } from "react-redux";
+
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -12,6 +14,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+function getPriorityText(level) {
+  let priorityArr = ["Низкий", "Средний", "Высокий"];
+  return priorityArr[level];
+}
 
 class CustomTypographyCard extends Component {
   render() {
@@ -33,8 +40,7 @@ class CustomTypographyCard extends Component {
 
 class ViewTaskCard extends Component {
     render() {
-      let item = this.props.item;
-
+      let item = this.props.viewFormValues;
       return (
         <Card className="custom-card">
           <CardHeader 
@@ -48,7 +54,7 @@ class ViewTaskCard extends Component {
               <Grid item xs={8}>
                 <TextField
                   readOnly
-                  value="Научиться переопределять стили"
+                  value={item.description}
                   variant="outlined"
                   fullWidth
                 />
@@ -61,7 +67,7 @@ class ViewTaskCard extends Component {
                   readOnly
                   multiline
                   rows={4}
-                  value="Здесь будет какой-нибудь длинный текст который не влазиет в одну строку, поэтому используется компонент со свойством multiline"
+                  value={item.additional_data.info}
                   variant="outlined"
                   fullWidth
                 />
@@ -72,7 +78,7 @@ class ViewTaskCard extends Component {
               <Grid item xs={4}>
                 <TextField
                   readOnly
-                  value="0 д."
+                  value={item.duration_days + " д."}
                   variant="outlined"
                   fullWidth
                 />
@@ -80,7 +86,7 @@ class ViewTaskCard extends Component {
               <Grid item xs={4}>
                 <TextField
                   readOnly
-                  value="12 ч."
+                  value={item.duration_hours + " ч."}
                   variant="outlined"
                   fullWidth
                 />
@@ -91,7 +97,7 @@ class ViewTaskCard extends Component {
               <Grid item xs={8}>
                 <TextField
                   readOnly
-                  value="Низкий"
+                  value={getPriorityText(item.additional_data.priority)}
                   variant="outlined"
                   fullWidth
                 />
@@ -131,4 +137,10 @@ class ViewTaskCard extends Component {
     }
 }
 
-export default ViewTaskCard;
+function mapStateToProps(store) {
+  return {
+    viewFormValues: store.viewFormValues,
+  };
+}
+
+export default connect(mapStateToProps)(ViewTaskCard);

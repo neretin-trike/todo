@@ -26,10 +26,10 @@ const changeAddFormValue = function (name, value) {
   }
 };
 
-const getTaskViewerInfo = function (idTask) {
+const getTaskViewerInfo = function (task) {
   return {
     type: "GET_TASK_VIEWER_INFO",
-    idTask,
+    task,
   }
 };
    

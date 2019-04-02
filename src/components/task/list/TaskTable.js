@@ -2,7 +2,8 @@ import React, { Component, Children } from 'react';
 import './TaskTable.css';
 
 import { connect } from "react-redux";
-import { markTaskAsDone, markTaskAsPlanned } from "../../../actions/actions";
+import { markTaskAsDone, markTaskAsPlanned, getTaskViewerInfo } from "../../../actions/actions";
+import { getTask } from "../../../api/apiManager";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,8 +37,7 @@ class TaskList extends Component {
   }
 
   render () {
-    let {style, options, tasks} = this.props;
-    console.log(tasks);
+    let {style, tasks} = this.props;
     return (
       <Table>
         {
@@ -91,20 +91,12 @@ class TaskTable extends Component {
           onclickHande = {this.props.getTaskInfo}
           changeHandle = {this.props.changeHandlePlannedTask}
           tasks={this.props.tasksPlanned} 
-          options = {{
-           checked:false,
-           disabled:false,
-          }}
           style = {"table-row"}
         />
         <TaskList 
           onclickHande = {this.props.getTaskInfo}
           changeHandle = {this.props.changeHandleDoneTask}
           tasks={this.props.tasksDone} 
-          options = {{
-           checked:true,
-           disabled:true,
-          }}
           style = {"table-row done-task"}
         />
       </Paper>      
@@ -113,7 +105,6 @@ class TaskTable extends Component {
 }
 
 function mapStateToProps(store) {
-  console.log(store);
   return {
     tasksPlanned: store.tasksPlanned,
     tasksDone: store.tasksDone,
@@ -123,7 +114,9 @@ function mapStateToProps(store) {
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
     getTaskInfo: function (event, id) {
-      console.log(id);
+      let token = localStorage.getItem("token");
+      getTask(id, token).
+        then(json => dispatch(getTaskViewerInfo(json)));
     },
     changeHandlePlannedTask: function(event, id) {
       dispatch(markTaskAsDone(id));

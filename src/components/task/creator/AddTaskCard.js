@@ -18,7 +18,6 @@ import TextField from '@material-ui/core/TextField';
 
 class AddTaskCard extends Component {
     render() {
-      console.log(this.props)
       return (
         <Card className="custom-card">
           <CardHeader 

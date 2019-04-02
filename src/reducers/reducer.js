@@ -12,13 +12,14 @@ const initialState = {
     },
     viewFormValues: {
         description: "",
-        duration_days: "0",
-        duration_hours: "0",
-        info: "",
-        priority: "0",
+        duration_days: "",
+        duration_hours: "",
+        additional_data: {
+            info: "",
+            priority: "",
+        }
     }
 }
-
 
 function getFilterItems(tasksPlanned, id) {
     let changeItem = {};
@@ -74,11 +75,11 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "GET_TASK_VIEWER_INFO": {
-        // let items = {...state.addFormValues};
-        // items[action.name] = action.value;
-        // return {...state, 
-        //     viewFormValues: items,
-        // }
+        let items = {...state.viewFormValues};
+        items = action.task;
+        return {...state, 
+            viewFormValues: items,
+        }
     }
   }
   return state;
