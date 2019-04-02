@@ -32,9 +32,18 @@ const getTaskViewerInfo = function (task) {
     task,
   }
 };
+
+const addNewTask = function (task, id) {
+  return {
+    type: "ADD_NEW_TASK",
+    task,
+    id
+  }
+};
    
 export { setInitalState, 
          markTaskAsDone, 
          markTaskAsPlanned, 
          changeAddFormValue, 
-         getTaskViewerInfo };
+         getTaskViewerInfo,
+         addNewTask };

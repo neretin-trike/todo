@@ -6,8 +6,10 @@ const initialState = {
         description: "",
         duration_days: "0",
         duration_hours: "0",
-        info: "",
-        priority: "0",
+        additional_data: {
+            info: "",
+            priority: "0",
+        },
         userid: "1",
     },
     viewFormValues: {
@@ -69,7 +71,11 @@ const reducer = function(state = initialState, action) {
     }
     case "CHANGE_ADDFORM_VALUE": {
         let items = {...state.addFormValues};
-        items[action.name] = action.value;
+        if ( action.name === "info" || action.name === "priority" ) {
+            items.additional_data[action.name] = action.value;
+        } else {
+            items[action.name] = action.value;
+        }
         return {...state, 
             addFormValues: items,
         }
@@ -79,6 +85,15 @@ const reducer = function(state = initialState, action) {
         items = action.task;
         return {...state, 
             viewFormValues: items,
+        }
+    }
+    case "ADD_NEW_TASK": {
+        let items = [...state.tasksPlanned];
+        action.task.id = action.id;
+        items.push(action.task);
+        return {
+            ...state,
+            tasksPlanned:items
         }
     }
   }

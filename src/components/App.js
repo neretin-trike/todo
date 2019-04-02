@@ -35,6 +35,7 @@ class App extends Component {
 
         getTaskList(1, token).
           then (json => {
+            console.log(json);
             store.dispatch( setInitalState(json) )
           });
       }, 

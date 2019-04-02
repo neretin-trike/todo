@@ -4,7 +4,7 @@ import './AddTaskCard.css';
 
 import { connect } from "react-redux";
 import { saveTask} from "../../../api/apiManager";
-import { changeAddFormValue } from "../../../actions/actions";
+import { changeAddFormValue, addNewTask } from "../../../actions/actions";
 import store from '../../../store';
 
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 
 class AddTaskCard extends Component {
     render() {
+      let {addFormValues, changeValueHandle} = this.props;
       return (
         <Card className="custom-card">
           <CardHeader 
@@ -31,9 +32,9 @@ class AddTaskCard extends Component {
           <CardContent>
             <form noValidate autoComplete="off">
               <TextField
-                value={this.props.addFormValues.description}
+                value={addFormValues.description}
                 name="description"
-                onChange={this.props.changeValueHandle}
+                onChange={changeValueHandle}
                 
                 required
                 label="Задача"
@@ -45,9 +46,9 @@ class AddTaskCard extends Component {
                 }}
               />
               <TextField
-                value={this.props.addFormValues.info}
+                value={addFormValues.additional_data.info}
                 name="info"
-                onChange={this.props.changeValueHandle}
+                onChange={changeValueHandle}
 
                 required
                 label="Подробное описание"
@@ -63,9 +64,9 @@ class AddTaskCard extends Component {
               <Grid container spacing={16}>
                 <Grid item xs={3}>
                   <TextField
-                    value={this.props.addFormValues.duration_days}
+                    value={addFormValues.duration_days}
                     name="duration_days"
-                    onChange={this.props.changeValueHandle}
+                    onChange={changeValueHandle}
 
                     label="Дни"
                     helperText="Длительность в днях"
@@ -80,9 +81,9 @@ class AddTaskCard extends Component {
                 </Grid>
                 <Grid item xs={3}>
                   <TextField
-                    value={this.props.addFormValues.duration_hours}
+                    value={addFormValues.duration_hours}
                     name="duration_hours"
-                    onChange={this.props.changeValueHandle}
+                    onChange={changeValueHandle}
 
                     label="Часы"
                     helperText="Длительность в часах"
@@ -103,9 +104,9 @@ class AddTaskCard extends Component {
                     variant="outlined"
                     fullWidth
   
-                    value={this.props.addFormValues.priority}
+                    value={addFormValues.additional_data.priority}
                     name="priority"
-                    onChange={this.props.changeValueHandle}
+                    onChange={changeValueHandle}
                   >
                     <MenuItem value="0">Низкий</MenuItem>>
                     <MenuItem value="1">Средний</MenuItem>>
@@ -157,13 +158,20 @@ class AddTaskCard extends Component {
              
           let token = localStorage.getItem("token");
           let formData = new FormData();
-          let object = addFormValues;
+          let object = {...addFormValues};
+
+          object.info = object.additional_data.info;
+          object.priority = object.additional_data.priority;
+          delete object.additional_data;
 
           for(let key in object) {
             formData.append(key, object[key])
           }
 
-          saveTask(formData, token).catch(error => alert(error));
+          saveTask(formData, token).
+            then( json => {
+              dispatch(addNewTask(addFormValues, json.id))
+            }, error => alert(error));
 
       },
       changeValueHandle: function(event) {
