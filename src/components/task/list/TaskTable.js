@@ -12,7 +12,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 
-class CustomTableHeadCell extends Component{W
+function getPriorityText(level) {
+  let priorityArr = ["Низкий", "Средний", "Высокий"];
+  return priorityArr[level];
+}
+
+class CustomTableHeadCell extends Component{
   constructor(props) {
     super(props);
   }
@@ -55,18 +60,17 @@ class TaskList extends Component {
                 root: style
               }}
               hover={true} 
-              key={row.id} >
+              key={row.id} 
+              onClick={(e) => this.props.onclickHande(e,row.id) } >
               <TableCell style={{width:"1px"}} padding="checkbox">
                 <Checkbox 
-                  id = {row.id.toString()}
-                  // disabled={options.disabled} 
                   checked={row.isDone} 
-                  onChange={this.props.changeHandle} />
+                  onChange={ (e) => this.props.changeHandle(e, row.id) } />
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.description}
               </TableCell>
-              <TableCell align="right">{row.additional_data.priority}</TableCell>
+              <TableCell align="right">{getPriorityText(row.additional_data.priority)}</TableCell>
               <TableCell align="right">{row.duration_days} д. {row.duration_hours} ч.</TableCell>
             </TableRow>
           ))}
@@ -84,6 +88,7 @@ class TaskTable extends Component {
     return (
       <Paper>
         <TaskList 
+          onclickHande = {this.props.getTaskInfo}
           changeHandle = {this.props.changeHandlePlannedTask}
           tasks={this.props.tasksPlanned} 
           options = {{
@@ -93,6 +98,7 @@ class TaskTable extends Component {
           style = {"table-row"}
         />
         <TaskList 
+          onclickHande = {this.props.getTaskInfo}
           changeHandle = {this.props.changeHandleDoneTask}
           tasks={this.props.tasksDone} 
           options = {{
@@ -116,13 +122,14 @@ function mapStateToProps(store) {
 
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
-    changeHandlePlannedTask: function(event) {
-      const target = event.target;
-      dispatch(markTaskAsDone(target.id) );
+    getTaskInfo: function (event, id) {
+      console.log(id);
     },
-    changeHandleDoneTask: function(event) {
-      const target = event.target;
-      dispatch(markTaskAsPlanned(target.id) );
+    changeHandlePlannedTask: function(event, id) {
+      dispatch(markTaskAsDone(id));
+    },
+    changeHandleDoneTask: function(event, id) {
+      dispatch(markTaskAsPlanned(id));
     }
   }
 }

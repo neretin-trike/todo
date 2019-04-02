@@ -33,6 +33,8 @@ class CustomTypographyCard extends Component {
 
 class ViewTaskCard extends Component {
     render() {
+      let item = this.props.item;
+
       return (
         <Card className="custom-card">
           <CardHeader 

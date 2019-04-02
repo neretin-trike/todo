@@ -3,8 +3,6 @@ import { BASE_URL } from '../constants/config.js';
 let api = null;
 
 function getInitializedApi(apiUrl, myMethod = "GET", data = null, myHeaders = null) {
-//   if (api) return api; // return initialized api if already initialized.
-
     let initOptions = {
         method: myMethod,
         mode: "cors",
@@ -46,8 +44,11 @@ function getTaskList(page = 1, token) {
     return getMethod(`/api/task/list/${page}`, headers);
 }
 
-function getTask(id = 1) {
-    return getMethod(`/api/task/${id}`);
+function getTask(id = 1, token) {
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+    }
+    return getMethod(`/api/task/${id}`, headers);
 }
 
 function saveTask(formData, token) {
@@ -76,4 +77,4 @@ function loginUser(formData) {
     return postMethod(`/api/login_check`, JSON.stringify(formData), headers);
 }
 
-export {loginUser, saveTask, getTaskList};
+export {loginUser, saveTask, getTaskList, getTask};

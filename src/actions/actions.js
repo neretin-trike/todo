@@ -25,5 +25,16 @@ const changeAddFormValue = function (name, value) {
     value,
   }
 };
+
+const getTaskViewerInfo = function (idTask) {
+  return {
+    type: "GET_TASK_VIEWER_INFO",
+    idTask,
+  }
+};
    
-export {setInitalState, markTaskAsDone, markTaskAsPlanned, changeAddFormValue };
+export { setInitalState, 
+         markTaskAsDone, 
+         markTaskAsPlanned, 
+         changeAddFormValue, 
+         getTaskViewerInfo };

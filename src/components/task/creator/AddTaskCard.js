@@ -174,8 +174,4 @@ class AddTaskCard extends Component {
     }
   }
 
-  const mapDispatchToProps = function(dispatch, ownProps) {
-
-  }
-
   export default connect(mapStateToProps, null, mergeProps)(AddTaskCard);

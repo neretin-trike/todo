@@ -9,6 +9,13 @@ const initialState = {
         info: "",
         priority: "0",
         userid: "1",
+    },
+    viewFormValues: {
+        description: "",
+        duration_days: "0",
+        duration_hours: "0",
+        info: "",
+        priority: "0",
     }
 }
 
@@ -65,6 +72,13 @@ const reducer = function(state = initialState, action) {
         return {...state, 
             addFormValues: items,
         }
+    }
+    case "GET_TASK_VIEWER_INFO": {
+        // let items = {...state.addFormValues};
+        // items[action.name] = action.value;
+        // return {...state, 
+        //     viewFormValues: items,
+        // }
     }
   }
   return state;
