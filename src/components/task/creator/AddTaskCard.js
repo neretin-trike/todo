@@ -15,8 +15,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+// import FilledInput from '@material-ui/core/FilledInput';
 
 class AddTaskCard extends Component {
+    constructor(props) {
+      super(props);
+
+      this.fileInput = React.createRef();
+    }
     render() {
       let {addFormValues, changeValueHandle} = this.props;
       return (
@@ -120,6 +126,7 @@ class AddTaskCard extends Component {
                     variant="outlined"
                     type="file"
                     // value="Имя файла"
+                    inputRef = {this.fileInput}
                     fullWidth
                     InputLabelProps={{
                       shrink: true,
@@ -134,7 +141,7 @@ class AddTaskCard extends Component {
               Отменить
             </Button>
             <Button 
-              onClick={this.props.addClickHandle}
+              onClick={ (e) => this.props.addClickHandle(e, this.fileInput)}
               variant="outlined" 
               color="primary">
               Сохранить
@@ -155,12 +162,15 @@ class AddTaskCard extends Component {
 
     return {
       addFormValues,
-      addClickHandle: function(event) {
+      addClickHandle: function(event, fileInput) {
+
+          console.log(fileInput.current.files[0].name);
              
           let token = localStorage.getItem("token");
           let formData = new FormData();
           
           let object = {...addFormValues};
+          object.attachmentFile = fileInput.current.files[0];
           object.info = object.additional_data.info;
           object.priority = object.additional_data.priority;
           delete object.additional_data;
