@@ -36,7 +36,11 @@ class AddTaskCard extends Component {
             title="Добавление новой задачи">
           </CardHeader>
           <CardContent>
-            <form noValidate autoComplete="off">
+            <form 
+              onSubmit={ (e) => this.props.submitAddFormHandle(e, this.fileInput)}
+              id="addForm" 
+              autoComplete="off"
+            >
               <TextField
                 value={addFormValues.description}
                 name="description"
@@ -141,7 +145,9 @@ class AddTaskCard extends Component {
               Отменить
             </Button>
             <Button 
-              onClick={ (e) => this.props.addClickHandle(e, this.fileInput)}
+              type="submit"
+              form="addForm"
+
               variant="outlined" 
               color="primary">
               Сохранить
@@ -162,10 +168,12 @@ class AddTaskCard extends Component {
 
     return {
       addFormValues,
-      addClickHandle: function(event, fileInput) {
+      submitAddFormHandle: function(event, fileInput) {
 
-          console.log(fileInput.current.files[0].name);
-             
+        console.log(fileInput);
+
+        event.preventDefault();
+
           let token = localStorage.getItem("token");
           let formData = new FormData();
           
