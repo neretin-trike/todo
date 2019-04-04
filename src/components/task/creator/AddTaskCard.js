@@ -33,7 +33,7 @@ class AddTaskCard extends Component {
                 content: "custom-cardheader-title",
                 title: "custom-cardheader-title"
             }}
-            title="Добавление новой задачи">
+            title={this.props.addTaskType + " задачи"}>
           </CardHeader>
           <CardContent>
             <form 
@@ -163,35 +163,40 @@ class AddTaskCard extends Component {
   }
 
   const mergeProps = (stateProps, dispatcProps) => {
-    const {addFormValues} = stateProps;
+    const {addFormValues, addTaskType} = stateProps;
     const {dispatch} = dispatcProps;
 
     return {
       addFormValues,
+      addTaskType,
       submitAddFormHandle: function(event, fileInput) {
-
-        console.log(fileInput);
 
         event.preventDefault();
 
-          let token = localStorage.getItem("token");
-          let formData = new FormData();
-          
-          let object = {...addFormValues};
-          object.attachmentFile = fileInput.current.files[0];
-          object.info = object.additional_data.info;
-          object.priority = object.additional_data.priority;
-          delete object.additional_data;
+        let token = localStorage.getItem("token");
+        let formData = new FormData();
+        
+        let object = {...addFormValues};
+        object.attachmentFile = fileInput.current.files[0];
+        object.info = object.additional_data.info;
+        object.priority = object.additional_data.priority;
+        delete object.additional_data;
 
-          for(let key in object) {
-            formData.append(key, object[key])
-          }
+        for(let key in object) {
+          formData.append(key, object[key])
+        }
 
+        if (addTaskType === "Добавление новой") {
           saveTask(formData, token).
             then( json => {
               dispatch(addNewTask(addFormValues, json.id))
-            }, error => alert(error));
-
+          }, error => alert(error));
+        }
+        if (addTaskType === "Изменение") {
+          let {id} = addFormValues; 
+          editTask(id, formData, token).
+            then( json => console.log(json));
+        }
       },
       changeValueHandle: function(event) {
         const target = event.target;

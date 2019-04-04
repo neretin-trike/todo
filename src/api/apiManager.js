@@ -58,8 +58,11 @@ function saveTask(formData, token) {
     return postMethod(`/api/task/save`, formData, headers);
 }
 
-function editTask(id, formData) {
-    return postMethod(`/api/task/save/${id}`, formData);
+function editTask(id, formData, token) {
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+    }
+    return postMethod(`/api/task/save/${id}`, formData, headers);
 }
 
 function deleteTask(id) {

@@ -2,6 +2,7 @@
 const initialState = {
     tasksPlanned: [],
     tasksDone: [],
+    addTaskType: "Добавление новой",
     addFormValues: {
         description: "",
         duration_days: "0",
@@ -100,9 +101,10 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "EDIT_SELECT_TASK": {
-        let items = action.task;
+        let items = JSON.parse(JSON.stringify(state.viewFormValues));
         return {
             ...state,
+            addTaskType: action.addTaskType,
             addFormValues:items
         }
     }

@@ -43,7 +43,6 @@ class CustomTypographyCard extends Component {
 class ViewTaskCard extends Component {
     render() {
       let item = this.props.viewFormValues;
-      console.log(item);
       return (
         <Card className="custom-card">
           <CardHeader 
@@ -153,14 +152,15 @@ function mapStateToProps(store) {
 }
 
 const mergeProps = (stateProps, dispatcProps) => {
-  const {viewFormValues} = stateProps;
+  const {viewFormValues, addTaskType} = stateProps;
   const {dispatch} = dispatcProps;
  
   return {
+    addTaskType,
     viewFormValues,
     setEditTask: function(event) {
       const target = event.target;
-      dispatch(editSelectTask(viewFormValues, 0) );
+      dispatch(editSelectTask("Изменение") );
     }
   }
 }

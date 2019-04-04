@@ -41,10 +41,10 @@ const addNewTask = function (task, id) {
   }
 };
 
-const editSelectTask = function (task) {
+const editSelectTask = function (addTaskType) {
   return {
     type: "EDIT_SELECT_TASK",
-    task,
+    addTaskType
   }
 }
    
