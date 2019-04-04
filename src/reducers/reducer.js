@@ -85,6 +85,7 @@ const reducer = function(state = initialState, action) {
     case "GET_TASK_VIEWER_INFO": {
         let items = {...state.viewFormValues};
         items = action.task;
+        console.log(items);
         return {...state, 
             viewFormValues: items,
         }
@@ -96,6 +97,13 @@ const reducer = function(state = initialState, action) {
         return {
             ...state,
             tasksPlanned:items
+        }
+    }
+    case "EDIT_SELECT_TASK": {
+        let items = action.task;
+        return {
+            ...state,
+            addFormValues:items
         }
     }
   }

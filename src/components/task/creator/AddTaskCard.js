@@ -3,7 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './AddTaskCard.css';
 
 import { connect } from "react-redux";
-import { saveTask} from "../../../api/apiManager";
+import { saveTask, editTask} from "../../../api/apiManager";
 import { changeAddFormValue, addNewTask } from "../../../actions/actions";
 import store from '../../../store';
 

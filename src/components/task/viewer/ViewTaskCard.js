@@ -3,6 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './ViewTaskCard.css';
 
 import { connect } from "react-redux";
+import { editSelectTask } from "../../../actions/actions";
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -137,7 +138,7 @@ class ViewTaskCard extends Component {
             <Button variant="outlined" color="primary">
               Закрыть
             </Button>
-            <Button variant="outlined" color="primary">
+            <Button variant="outlined" onClick={this.props.setEditTask} color="primary">
               Изменить
             </Button>
           </CardActions>
@@ -146,10 +147,22 @@ class ViewTaskCard extends Component {
     }
 }
 
+
 function mapStateToProps(store) {
-  return {
-    viewFormValues: store.viewFormValues,
-  };
+  return store;
 }
 
-export default connect(mapStateToProps)(ViewTaskCard);
+const mergeProps = (stateProps, dispatcProps) => {
+  const {viewFormValues} = stateProps;
+  const {dispatch} = dispatcProps;
+ 
+  return {
+    viewFormValues,
+    setEditTask: function(event) {
+      const target = event.target;
+      dispatch(editSelectTask(viewFormValues, 0) );
+    }
+  }
+}
+
+export default connect(mapStateToProps, null, mergeProps)(ViewTaskCard);

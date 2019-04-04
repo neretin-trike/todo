@@ -40,10 +40,18 @@ const addNewTask = function (task, id) {
     id
   }
 };
+
+const editSelectTask = function (task) {
+  return {
+    type: "EDIT_SELECT_TASK",
+    task,
+  }
+}
    
 export { setInitalState, 
          markTaskAsDone, 
          markTaskAsPlanned, 
          changeAddFormValue, 
          getTaskViewerInfo,
-         addNewTask };
+         addNewTask,
+         editSelectTask };
