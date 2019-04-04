@@ -86,7 +86,6 @@ const reducer = function(state = initialState, action) {
     case "GET_TASK_VIEWER_INFO": {
         let items = {...state.viewFormValues};
         items = action.task;
-        console.log(items);
         return {...state, 
             viewFormValues: items,
         }
@@ -100,12 +99,24 @@ const reducer = function(state = initialState, action) {
             tasksPlanned:items
         }
     }
-    case "EDIT_SELECT_TASK": {
-        let items = JSON.parse(JSON.stringify(state.viewFormValues));
+    case "MAP_TASK_TO_ADDFORM": {
+        let item = JSON.parse(JSON.stringify(state.viewFormValues));
         return {
             ...state,
             addTaskType: action.addTaskType,
-            addFormValues:items
+            addFormValues:item,
+        }
+    }
+    case "EDIT_SELECT_TASK": {
+        let item = action.task;
+
+        let plannedTaskList = [...state.tasksPlanned];
+        let plTaskIDList = plannedTaskList.map( e => e.id);
+        let indexFound = plTaskIDList.indexOf(+item.id);
+        plannedTaskList[indexFound] = item;
+        return {
+            ...state,
+            tasksPlanned: plannedTaskList
         }
     }
   }

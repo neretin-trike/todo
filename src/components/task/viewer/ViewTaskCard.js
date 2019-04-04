@@ -3,7 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './ViewTaskCard.css';
 
 import { connect } from "react-redux";
-import { editSelectTask } from "../../../actions/actions";
+import { mapTaskToAddForm } from "../../../actions/actions";
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -160,7 +160,7 @@ const mergeProps = (stateProps, dispatcProps) => {
     viewFormValues,
     setEditTask: function(event) {
       const target = event.target;
-      dispatch(editSelectTask("Изменение") );
+      dispatch(mapTaskToAddForm("Изменение") );
     }
   }
 }

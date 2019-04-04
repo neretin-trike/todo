@@ -41,17 +41,25 @@ const addNewTask = function (task, id) {
   }
 };
 
-const editSelectTask = function (addTaskType) {
+const editSelectTask = function (task) {
   return {
     type: "EDIT_SELECT_TASK",
+    task
+  }
+}
+
+const mapTaskToAddForm = function (addTaskType) {
+  return {
+    type: "MAP_TASK_TO_ADDFORM",
     addTaskType
   }
 }
-   
+
 export { setInitalState, 
          markTaskAsDone, 
          markTaskAsPlanned, 
          changeAddFormValue, 
          getTaskViewerInfo,
          addNewTask,
-         editSelectTask };
+         editSelectTask,
+         mapTaskToAddForm };

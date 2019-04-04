@@ -4,7 +4,7 @@ import './AddTaskCard.css';
 
 import { connect } from "react-redux";
 import { saveTask, editTask} from "../../../api/apiManager";
-import { changeAddFormValue, addNewTask } from "../../../actions/actions";
+import { changeAddFormValue, addNewTask, editSelectTask } from "../../../actions/actions";
 import store from '../../../store';
 
 import Button from '@material-ui/core/Button';
@@ -194,8 +194,11 @@ class AddTaskCard extends Component {
         }
         if (addTaskType === "Изменение") {
           let {id} = addFormValues; 
+
           editTask(id, formData, token).
-            then( json => console.log(json));
+            then( json => {
+              dispatch(editSelectTask(json))
+          }, error => alert(error));
         }
       },
       changeValueHandle: function(event) {
