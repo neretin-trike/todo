@@ -37,11 +37,11 @@ function deleteMethod(url) {
 
 
 
-function getTaskList(page = 1, token) {
+function getTaskList(token) {
     let headers = {
         "Authorization": `Bearer ${token}`,
     }
-    return getMethod(`/api/task/list/${page}`, headers);
+    return getMethod(`/api/task/list/`, headers);
 }
 
 function getTask(id = 1, token) {
@@ -77,4 +77,8 @@ function loginUser(formData) {
     return postMethod(`/api/login_check`, JSON.stringify(formData), headers);
 }
 
-export {loginUser, saveTask, getTaskList, getTask};
+export { loginUser, 
+         saveTask, 
+         getTaskList, 
+         getTask,
+         editTask };

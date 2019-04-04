@@ -33,7 +33,7 @@ class App extends Component {
         let token = json.token;
         localStorage.setItem("token", token);
 
-        getTaskList(1, token).
+        getTaskList(token).
           then (json => {
             console.log(json);
             store.dispatch( setInitalState(json) )
