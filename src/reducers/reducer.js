@@ -2,6 +2,7 @@
 const initialState = {
     tasksPlanned: [],
     tasksDone: [],
+    currentPage: "wrapper open-tasklist",
     addTaskType: "Добавление новой",
     addFormValues: {
         description: "",
@@ -119,6 +120,13 @@ const reducer = function(state = initialState, action) {
             tasksPlanned: plannedTaskList
         }
     }
+    case "SET_PAGE_OPEN": {
+        // alert("wrapper "+ action.setClassNames);
+        return {
+            ...state,
+            currentPage: "wrapper "+ action.setClassNames
+        }
+      }
   }
   return state;
 }

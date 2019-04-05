@@ -1,0 +1,18 @@
+.wrapper {
+    margin-top: 50px;
+    width: 3250px;
+    position: relative;
+    transition: left 0.6s cubic-bezier(0.215, 0.61, 0.355, 1)
+  }
+  
+  .open-tasklist {
+    left: -1080px;
+  }
+  
+  .open-addform {
+    left: 0;
+  }
+  
+  .open-viewerform {
+    left: -2168px;
+  }

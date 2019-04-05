@@ -9,9 +9,7 @@ import { loginUser, getTaskList} from "../api/apiManager";
 
 import Title from './common/Title';
 import AddButton from './common/AddButton';
-import TaskTable from './task/list/TaskTable';
-import AddTaskCard from './task/creator/AddTaskCard';
-import ViewTaskCard from './task/viewer/ViewTaskCard';
+import Wrapper from './main/Wrapper';
 
 import { Provider } from 'react-redux';
 import store from '../store';
@@ -35,9 +33,9 @@ class App extends Component {
 
         getTaskList(token).
           then (json => {
-            console.log(json);
             store.dispatch( setInitalState(json) )
           });
+        
       }, 
       err => alert(err) );
   }
@@ -46,15 +44,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <MuiThemeProvider theme={theme}>
-          <main className="container App">
-            <Title />
-            <AddButton />
-            <section className="wrapper">
-              <AddTaskCard />
-              <TaskTable />
-              <ViewTaskCard />
-            </section>
-          </main>
+            <main className="container App">
+                <Title />
+                <AddButton />
+                <Wrapper />
+            </main>
         </MuiThemeProvider>
       </Provider>
 

@@ -55,6 +55,13 @@ const mapTaskToAddForm = function (addTaskType) {
   }
 }
 
+const setPageOpen = function (setClassNames) {
+  return {
+    type: "SET_PAGE_OPEN",
+    setClassNames
+  }
+}
+
 export { setInitalState, 
          markTaskAsDone, 
          markTaskAsPlanned, 
@@ -62,4 +69,5 @@ export { setInitalState,
          getTaskViewerInfo,
          addNewTask,
          editSelectTask,
-         mapTaskToAddForm };
+         mapTaskToAddForm,
+         setPageOpen };

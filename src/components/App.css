@@ -15,10 +15,3 @@ html, body, #root {
   position: relative;
 }
 
-.wrapper {
-  /* float: left; */
-  /* display: flex; */
-  width: 3250px;
-  position: relative;
-  left: -1080px;
-}
