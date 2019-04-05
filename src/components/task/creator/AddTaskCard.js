@@ -4,7 +4,7 @@ import './AddTaskCard.css';
 
 import { connect } from "react-redux";
 import { saveTask, editTask} from "../../../api/apiManager";
-import { changeAddFormValue, addNewTask, editSelectTask } from "../../../actions/actions";
+import { changeAddFormValue, addNewTask, editSelectTask, setPageOpen } from "../../../actions/actions";
 import store from '../../../store';
 
 import Button from '@material-ui/core/Button';
@@ -141,7 +141,10 @@ class AddTaskCard extends Component {
             </form>
           </CardContent>
           <CardActions style={{ float: 'right' }}>
-            <Button variant="outlined" color="primary">
+            <Button 
+              variant="outlined" 
+              color="primary"
+              onClick={this.props.closeAddForm}>
               Отменить
             </Button>
             <Button 
@@ -200,10 +203,15 @@ class AddTaskCard extends Component {
               dispatch(editSelectTask(json))
           }, error => alert(error));
         }
+
+        dispatch(setPageOpen("open-tasklist") );
       },
       changeValueHandle: function(event) {
         const target = event.target;
         dispatch(changeAddFormValue(target.name, target.value) );
+      },
+      closeAddForm: function(event) {
+        dispatch(setPageOpen("open-tasklist") );
       }
     }
   }

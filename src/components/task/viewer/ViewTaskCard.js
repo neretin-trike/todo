@@ -3,7 +3,7 @@ import * as ReactRouterDOM from "react-router-dom";
 import './ViewTaskCard.css';
 
 import { connect } from "react-redux";
-import { mapTaskToAddForm } from "../../../actions/actions";
+import { mapTaskToAddForm, setPageOpen } from "../../../actions/actions";
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -134,10 +134,16 @@ class ViewTaskCard extends Component {
           </Grid>
           </CardContent>
           <CardActions style={{ float: 'right' }}>
-            <Button variant="outlined" color="primary">
+            <Button 
+              variant="outlined" 
+              onClick={this.props.closeViewerForm} 
+              color="primary">
               Закрыть
             </Button>
-            <Button variant="outlined" onClick={this.props.setEditTask} color="primary">
+            <Button 
+              variant="outlined" 
+              onClick={this.props.setEditTask} 
+              color="primary">
               Изменить
             </Button>
           </CardActions>
@@ -161,6 +167,10 @@ const mergeProps = (stateProps, dispatcProps) => {
     setEditTask: function(event) {
       const target = event.target;
       dispatch(mapTaskToAddForm("Изменение") );
+      dispatch(setPageOpen("open-addform") );
+    },
+    closeViewerForm: function(event) {
+      dispatch(setPageOpen("open-tasklist") );
     }
   }
 }

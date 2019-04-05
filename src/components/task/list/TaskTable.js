@@ -2,7 +2,7 @@ import React, { Component, Children } from 'react';
 import './TaskTable.css';
 
 import { connect } from "react-redux";
-import { markTaskAsDone, markTaskAsPlanned, getTaskViewerInfo } from "../../../actions/actions";
+import { markTaskAsDone, markTaskAsPlanned, getTaskViewerInfo, setPageOpen } from "../../../actions/actions";
 import { getTask } from "../../../api/apiManager";
 
 import Table from '@material-ui/core/Table';
@@ -116,14 +116,18 @@ const mapDispatchToProps = function(dispatch, ownProps) {
     getTaskInfo: function (event, id) {
       let token = localStorage.getItem("token");
       getTask(id, token).
-        then(json =>  dispatch(getTaskViewerInfo(json)))
+        then(json => {
+          dispatch(getTaskViewerInfo(json));
+          dispatch(setPageOpen("open-viewerform"));
+        })
     },
     changeHandlePlannedTask: function(event, id) {
       dispatch(markTaskAsDone(id));
     },
     changeHandleDoneTask: function(event, id) {
       dispatch(markTaskAsPlanned(id));
-    }
+    }, 
+
   }
 }
 
