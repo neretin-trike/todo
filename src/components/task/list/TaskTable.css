@@ -2,6 +2,16 @@
     color: var(--main-color)
 }
 
+.custom-card {
+  float: left !important;
+  width: 1040px !important;
+  margin: 0 15px !important;
+
+    /* margin: 25px 0; */
+    /* width: 1000px; */
+    /* flex: 0 0 650px; */
+}
+
 .table-row {
     cursor: pointer;
 }

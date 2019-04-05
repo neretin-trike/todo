@@ -49,9 +49,11 @@ class App extends Component {
           <main className="container App">
             <Title />
             <AddButton />
-            <TaskTable />
-            <AddTaskCard />
-            <ViewTaskCard />
+            <section className="wrapper">
+              <AddTaskCard />
+              <TaskTable />
+              <ViewTaskCard />
+            </section>
           </main>
         </MuiThemeProvider>
       </Provider>

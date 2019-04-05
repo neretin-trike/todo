@@ -1,5 +1,6 @@
 html, body, #root {
   height: 100%;
+  background-color: var(--main-color);
 }
 * {
   box-sizing: border-box;
@@ -10,5 +11,14 @@ html, body, #root {
   max-width: 1070px;
   padding: 0 15px;
 
+  overflow: hidden;
   position: relative;
+}
+
+.wrapper {
+  /* float: left; */
+  /* display: flex; */
+  width: 3250px;
+  position: relative;
+  left: -1080px;
 }

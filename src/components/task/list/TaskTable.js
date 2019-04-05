@@ -86,7 +86,7 @@ class TaskTable extends Component {
 
   render() {
     return (
-      <Paper>
+      <Paper classes={{ root: "custom-card" }}>
         <TaskList 
           onclickHande = {this.props.getTaskInfo}
           changeHandle = {this.props.changeHandlePlannedTask}

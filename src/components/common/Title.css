@@ -1,16 +1,19 @@
 
 .title{
     margin: 24px 0;
+
   }
   
 .root.title-icon {
-    color: var(--main-color);
+    /* color: var(--main-color); */
+    color: white;
     font-size: 54px;
 }
   
 .root.title-typography {
+    /* color: var(--main-color); */
+    color: white;
     text-align: left;
     display: inline-block;
-    color: var(--main-color);
     font-weight: 500;
 }

@@ -1,12 +1,9 @@
-.custom-card {
-    margin: 25px 0;
-  }
-  
+
 .custom-cardheader {
-  background-color: var(--main-color);
+  /* background-color: var(--main-color); */
 }
 
 .custom-cardheader .custom-cardheader-title {
-  color: white;
+  /* color: white; */
 }
   
