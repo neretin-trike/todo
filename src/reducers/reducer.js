@@ -101,7 +101,15 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "MAP_TASK_TO_ADDFORM": {
-        let item = JSON.parse(JSON.stringify(state.viewFormValues));
+        let data = {};
+        if ( action.data == null ) {
+            data = initialState.addFormValues;
+        } else {
+            data = action.data;
+        }
+
+        let item = JSON.parse(JSON.stringify(data));
+
         return {
             ...state,
             addTaskType: action.addTaskType,
@@ -121,7 +129,6 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "SET_PAGE_OPEN": {
-        // alert("wrapper "+ action.setClassNames);
         return {
             ...state,
             currentPage: "wrapper "+ action.setClassNames

@@ -4,7 +4,7 @@ import './AddTaskCard.css';
 
 import { connect } from "react-redux";
 import { saveTask, editTask} from "../../../api/apiManager";
-import { changeAddFormValue, addNewTask, editSelectTask, setPageOpen } from "../../../actions/actions";
+import { changeAddFormValue, addNewTask, editSelectTask, setPageOpen, mapTaskToAddForm } from "../../../actions/actions";
 import store from '../../../store';
 
 import Button from '@material-ui/core/Button';
@@ -212,6 +212,7 @@ class AddTaskCard extends Component {
       },
       closeAddForm: function(event) {
         dispatch(setPageOpen("open-tasklist") );
+        dispatch(mapTaskToAddForm(null,"Добавление новой") );
       }
     }
   }

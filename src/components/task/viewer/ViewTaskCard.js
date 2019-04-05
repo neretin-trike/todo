@@ -166,7 +166,7 @@ const mergeProps = (stateProps, dispatcProps) => {
     viewFormValues,
     setEditTask: function(event) {
       const target = event.target;
-      dispatch(mapTaskToAddForm("Изменение") );
+      dispatch(mapTaskToAddForm(viewFormValues,"Изменение") );
       dispatch(setPageOpen("open-addform") );
     },
     closeViewerForm: function(event) {

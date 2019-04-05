@@ -48,9 +48,10 @@ const editSelectTask = function (task) {
   }
 }
 
-const mapTaskToAddForm = function (addTaskType) {
+const mapTaskToAddForm = function (data, addTaskType) {
   return {
     type: "MAP_TASK_TO_ADDFORM",
+    data,
     addTaskType
   }
 }
