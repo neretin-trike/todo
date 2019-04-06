@@ -114,12 +114,16 @@ function mapStateToProps(store) {
 const mapDispatchToProps = function(dispatch, ownProps) {
   return {
     getTaskInfo: function (event, id) {
-      let token = localStorage.getItem("token");
-      getTask(id, token).
-        then(json => {
-          dispatch(getTaskViewerInfo(json));
-          dispatch(setPageOpen("open-viewerform"));
-        })
+      let target = event.target;
+      if (target.nodeName !== "INPUT") {
+        let token = localStorage.getItem("token");
+        getTask(id, token).
+          then(json => {
+            dispatch(getTaskViewerInfo(json));
+            dispatch(setPageOpen("open-viewerform"));
+          })
+      }
+
     },
     changeHandlePlannedTask: function(event, id) {
       dispatch(markTaskAsDone(id));
