@@ -3,7 +3,7 @@ import './TaskTable.css';
 
 import { connect } from "react-redux";
 import { markTaskAsDone, markTaskAsPlanned, getTaskViewerInfo, setPageOpen } from "../../../actions/actions";
-import { getTask } from "../../../api/apiManager";
+import { getTask, deleteTask, saveTask } from "../../../api/apiManager";
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -65,7 +65,7 @@ class TaskList extends Component {
               <TableCell style={{width:"1px"}} padding="checkbox">
                 <Checkbox 
                   checked={row.isDone} 
-                  onChange={ (e) => this.props.changeHandle(e, row.id) } />
+                  onChange={ (e) => this.props.changeHandle(e, row) } />
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.description}
@@ -111,12 +111,13 @@ function mapStateToProps(store) {
   };
 }
 
-const mapDispatchToProps = function(dispatch, ownProps) {
+const mapDispatchToProps = function(dispatch, _ownProps) {
+  let token = localStorage.getItem("token");
+
   return {
     getTaskInfo: function (event, id) {
       let target = event.target;
       if (target.nodeName !== "INPUT") {
-        let token = localStorage.getItem("token");
         getTask(id, token).
           then(json => {
             dispatch(getTaskViewerInfo(json));
@@ -125,11 +126,26 @@ const mapDispatchToProps = function(dispatch, ownProps) {
       }
 
     },
-    changeHandlePlannedTask: function(event, id) {
-      dispatch(markTaskAsDone(id));
+    changeHandlePlannedTask: function(_event, row) {
+      deleteTask(row.id, token).
+        then( json => {
+          dispatch(markTaskAsDone(row, row.id));
+        });
     },
-    changeHandleDoneTask: function(event, id) {
-      dispatch(markTaskAsPlanned(id));
+    changeHandleDoneTask: function(_event, row) {
+      let formData = new FormData();
+      let object = {...row};
+      object.attachmentFile = object.attachment;
+      object.info = object.additional_data.info;
+      object.priority = object.additional_data.priority;
+      delete object.additional_data;
+      for(let key in object) {
+        formData.append(key, object[key])
+      }
+      saveTask(formData, token).
+        then( json => {
+          dispatch(markTaskAsPlanned(row, json.id));
+        });
     }, 
 
   }

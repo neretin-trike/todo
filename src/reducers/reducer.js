@@ -28,20 +28,21 @@ const initialState = {
 }
 
 function getFilterItems(tasksPlanned, id) {
-    let changeItem = {};
+    // let changeItem = {};
     let plannedItems = tasksPlanned;
     let filterItems = plannedItems.filter( (item) => {
-        if (item.id === id) {
-            changeItem = item;
-        } 
+        // if (item.id === id) {
+        //     changeItem = item;
+        // } 
         return item.id !== id;
     } )
 
-    return {filterItems, changeItem};
+    return {filterItems};
 }
 
-function getNewItems(taskDone, doneItem, isDone) {
+function getNewItems(taskDone, doneItem, isDone, newId) {
     let doneItems = taskDone;
+    doneItem.id = newId;
     doneItem.isDone = isDone;
     doneItems.push(doneItem);
 
@@ -56,8 +57,8 @@ const reducer = function(state = initialState, action) {
         };
     }
     case "MARK_TASK_AS_DONE": {
-        let {filterItems: plannedItems, changeItem} = getFilterItems([...state.tasksPlanned], +action.idTask)
-        let newDoneItems = getNewItems( [...state.tasksDone], changeItem, true)
+        let {filterItems: plannedItems} = getFilterItems([...state.tasksPlanned], +action.task.id)
+        let newDoneItems = getNewItems( [...state.tasksDone], action.task, true, +action.newId)
 
         return {...state, 
             tasksPlanned: plannedItems,
@@ -65,8 +66,8 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "MARK_TASK_AS_PLANNED": {
-        let {filterItems: doneItems, changeItem} = getFilterItems([...state.tasksDone], +action.idTask)
-        let newPlannedItems = getNewItems( [...state.tasksPlanned], changeItem, false)
+        let {filterItems: doneItems} = getFilterItems([...state.tasksDone], +action.task.id)
+        let newPlannedItems = getNewItems( [...state.tasksPlanned], action.task, false, +action.newId)
 
         return Object.assign({}, state, {
             tasksPlanned: newPlannedItems,

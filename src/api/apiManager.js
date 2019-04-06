@@ -22,15 +22,15 @@ function getInitializedApi(apiUrl, myMethod = "GET", data = null, myHeaders = nu
 }
 
 function getMethod(url, headers) {
-    return getInitializedApi(url, "GET", null ,headers)
+    return getInitializedApi(url, "GET", null, headers)
 }
 
 function postMethod(url, data, headers) {
-    return getInitializedApi(url, "POST",data, headers)
+    return getInitializedApi(url, "POST", data, headers)
 }
 
-function deleteMethod(url) {
-    return getInitializedApi(url, "DELETE")
+function deleteMethod(url, headers) {
+    return getInitializedApi(url, "DELETE", null, headers)
 }
 
 
@@ -65,8 +65,11 @@ function editTask(id, formData, token) {
     return postMethod(`/api/task/save/${id}`, formData, headers);
 }
 
-function deleteTask(id) {
-    return deleteMethod(`/api/task/${id}`); 
+function deleteTask(id, token) {
+    let headers = {
+        "Authorization": `Bearer ${token}`,
+    }
+    return deleteMethod(`/api/task/${id}`, headers); 
 }
 
 function registerUser(formData) {
@@ -84,4 +87,5 @@ export { loginUser,
          saveTask, 
          getTaskList, 
          getTask,
-         editTask };
+         editTask,
+         deleteTask };

@@ -5,16 +5,18 @@ const setInitalState = function (taskList) {
   }
 };
 
-const markTaskAsDone = function (idTask) {
+const markTaskAsDone = function (task, newId) {
     return {
       type: "MARK_TASK_AS_DONE",
-      idTask,
+      task,
+      newId
     }
   };
-const markTaskAsPlanned = function (idTask) {
+const markTaskAsPlanned = function (task, newId) {
     return {
       type: "MARK_TASK_AS_PLANNED",
-      idTask,
+      task,
+      newId
     }
   };
    
