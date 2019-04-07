@@ -12,6 +12,16 @@
     /* flex: 0 0 650px; */
 }
 
+.preload {
+    padding: 50px;
+    height: 500px;
+    text-align: center;
+}
+
+.circular-preloader {
+    margin-top: 25px;
+}
+
 .table-row {
     cursor: pointer;
 }

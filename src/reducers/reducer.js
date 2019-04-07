@@ -9,7 +9,7 @@ const initialState = {
         duration_days: "0",
         duration_hours: "0",
         additional_data: {
-            info: "",
+            info: "undefined",
             priority: "0",
         },
         userid: "1",
@@ -28,12 +28,8 @@ const initialState = {
 }
 
 function getFilterItems(tasksPlanned, id) {
-    // let changeItem = {};
     let plannedItems = tasksPlanned;
     let filterItems = plannedItems.filter( (item) => {
-        // if (item.id === id) {
-        //     changeItem = item;
-        // } 
         return item.id !== id;
     } )
 
@@ -102,12 +98,15 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "MAP_TASK_TO_ADDFORM": {
+
         let data = {};
         if ( action.data == null ) {
             data = initialState.addFormValues;
         } else {
             data = action.data;
         }
+
+        console.log(data);
 
         let item = JSON.parse(JSON.stringify(data));
 

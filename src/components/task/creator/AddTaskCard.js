@@ -205,6 +205,7 @@ class AddTaskCard extends Component {
         }
 
         dispatch(setPageOpen("open-tasklist") );
+        dispatch(mapTaskToAddForm(null,"Добавление новой") );
       },
       changeValueHandle: function(event) {
         const target = event.target;

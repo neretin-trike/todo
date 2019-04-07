@@ -12,6 +12,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 function getPriorityText(level) {
   let priorityArr = ["Низкий", "Средний", "Высокий"];
@@ -85,22 +88,31 @@ class TaskList extends Component {
 class TaskTable extends Component {
 
   render() {
-    return (
-      <Paper classes={{ root: "custom-card" }}>
-        <TaskList 
-          onclickHande = {this.props.getTaskInfo}
-          changeHandle = {this.props.changeHandlePlannedTask}
-          tasks={this.props.tasksPlanned} 
-          style = {"table-row"}
-        />
-        <TaskList 
-          onclickHande = {this.props.getTaskInfo}
-          changeHandle = {this.props.changeHandleDoneTask}
-          tasks={this.props.tasksDone} 
-          style = {"table-row done-task"}
-        />
-      </Paper>      
-    )
+    if (this.props.tasksPlanned.length == 0) {
+      return (
+        <Paper classes={{ root: "custom-card preload" }}>
+          <Typography variant="h6">Подождите, идёт загрузка данных...</Typography>
+          <CircularProgress  classes={{ root: "circular-preloader" }}  color="primary"/>
+        </Paper>
+      )
+    } else {
+      return (
+        <Paper classes={{ root: "custom-card" }}>
+          <TaskList 
+            onclickHande = {this.props.getTaskInfo}
+            changeHandle = {this.props.changeHandlePlannedTask}
+            tasks={this.props.tasksPlanned} 
+            style = {"table-row"}
+          />
+          <TaskList 
+            onclickHande = {this.props.getTaskInfo}
+            changeHandle = {this.props.changeHandleDoneTask}
+            tasks={this.props.tasksDone} 
+            style = {"table-row done-task"}
+          />
+        </Paper>    
+      )  
+    }
   }
 }
 
