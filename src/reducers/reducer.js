@@ -9,7 +9,7 @@ const initialState = {
         duration_days: "0",
         duration_hours: "0",
         additional_data: {
-            info: "undefined",
+            info: "",
             priority: "0",
         },
         userid: "1",
