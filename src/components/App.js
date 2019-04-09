@@ -5,7 +5,7 @@ import './App.css';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { PALETE } from '../constants/config.js';
-import { loginUser, getTaskList} from "../api/apiManager";
+import { loginUser, getTaskList, registerUser} from "../api/apiManager";
 
 import Title from './common/Title';
 import AddButton from './common/AddButton';
@@ -23,21 +23,29 @@ const Redirect = ReactRouterDOM.Redirect;
 
 const theme = createMuiTheme(PALETE);
 
+function getTaskListFromPromise(json) {
+  let token = json.token;
+  localStorage.setItem("token", token);
+
+  getTaskList(token).
+    then (json => {
+      store.dispatch( setInitalState(json) )
+    });
+}
+
 class App extends Component {
   componentDidMount() {
     let data = {'username':"trike",'password':"123456"};
     loginUser(data).
       then( json => {
-        let token = json.token;
-        localStorage.setItem("token", token);
-
-        getTaskList(token).
-          then (json => {
-            store.dispatch( setInitalState(json) )
-          });
-        
-      }, 
-      err => alert(err) );
+        getTaskListFromPromise(json);
+      }, err => {
+           data.email = "email@mail.com";
+           registerUser(data).
+            then( json => {
+              getTaskListFromPromise(json);
+            });
+      });
   }
 
   render() {

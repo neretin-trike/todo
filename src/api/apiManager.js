@@ -73,7 +73,10 @@ function deleteTask(id, token) {
 }
 
 function registerUser(formData) {
-    return getMethod(`/api/register/?id=99&username=twink&email=ad@m.ru&admin=true`);
+    let headers = {
+        "Content-Type": 'application/json'   
+    }
+    return postMethod(`/user/register`, JSON.stringify(formData), headers);
 }
 
 function loginUser(formData) {
@@ -84,6 +87,7 @@ function loginUser(formData) {
 }
 
 export { loginUser, 
+        registerUser,
          saveTask, 
          getTaskList, 
          getTask,

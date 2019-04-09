@@ -10,9 +10,6 @@ const initialState = {
         duration_hours: "0",
         info: "",
         priority: "0",
-        // additional_data: {
-        // },
-        userid: "1",
         attachmentFile: "",
     },
     viewFormValues: {
