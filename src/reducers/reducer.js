@@ -8,10 +8,10 @@ const initialState = {
         description: "",
         duration_days: "0",
         duration_hours: "0",
-        additional_data: {
-            info: "",
-            priority: "0",
-        },
+        info: "",
+        priority: "0",
+        // additional_data: {
+        // },
         userid: "1",
         attachmentFile: "",
     },
@@ -72,11 +72,7 @@ const reducer = function(state = initialState, action) {
     }
     case "CHANGE_ADDFORM_VALUE": {
         let items = {...state.addFormValues};
-        if ( action.name === "info" || action.name === "priority" ) {
-            items.additional_data[action.name] = action.value;
-        } else {
-            items[action.name] = action.value;
-        }
+        items[action.name] = action.value;
         return {...state, 
             addFormValues: items,
         }
@@ -98,22 +94,19 @@ const reducer = function(state = initialState, action) {
         }
     }
     case "MAP_TASK_TO_ADDFORM": {
-
         let data = {};
         if ( action.data == null ) {
-            data = initialState.addFormValues;
+            data = {...initialState.addFormValues};
         } else {
-            data = action.data;
+            data = {...action.data};
+            data.info = action.data.additional_data.info;
+            data.priority = action.data.additional_data.priority;
+            delete data.additional_data;
         }
-
-        console.log(data);
-
-        let item = JSON.parse(JSON.stringify(data));
-
         return {
             ...state,
             addTaskType: action.addTaskType,
-            addFormValues:item,
+            addFormValues:data,
         }
     }
     case "EDIT_SELECT_TASK": {

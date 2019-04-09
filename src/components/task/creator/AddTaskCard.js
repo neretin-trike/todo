@@ -56,7 +56,7 @@ class AddTaskCard extends Component {
                 }}
               />
               <TextField
-                value={addFormValues.additional_data.info}
+                value={addFormValues.info}
                 name="info"
                 onChange={changeValueHandle}
 
@@ -114,7 +114,7 @@ class AddTaskCard extends Component {
                     variant="outlined"
                     fullWidth
   
-                    value={addFormValues.additional_data.priority}
+                    value={addFormValues.priority}
                     name="priority"
                     onChange={changeValueHandle}
                   >
@@ -181,9 +181,6 @@ class AddTaskCard extends Component {
         
         let object = {...addFormValues};
         object.attachmentFile = fileInput.current.files[0];
-        object.info = object.additional_data.info;
-        object.priority = object.additional_data.priority;
-        delete object.additional_data;
 
         for(let key in object) {
           formData.append(key, object[key])
@@ -192,7 +189,7 @@ class AddTaskCard extends Component {
         if (addTaskType === "Добавление новой") {
           saveTask(formData, token).
             then( json => {
-              dispatch(addNewTask(addFormValues, json.id))
+              dispatch(addNewTask(json, json.id))
           }, error => alert(error));
         }
         if (addTaskType === "Изменение") {
