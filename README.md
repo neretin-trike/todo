@@ -1,11 +1,10 @@
 ## ToDo
 
-Классический менеджер задач, в виде web-приложения, написанное на ReactJS + Redux и созданное с помощью [Create React App](https://github.com/facebook/create-react-app).
+Классический менеджер задач, в виде web-приложения, написанное на ReactJS + Redux и созданное с помощью [Create React App](https://github.com/facebook/create-react-app), с применением [Material UI](https://material-ui.com). 
 
 Основные возможности:
 
-
-В качестве сервера используется [данный репозиторий](https://github.com/strictkod1899/AspNet_VueJs)
+В качестве сервера используется [данный репозиторий](https://github.com/SiberianTeletubbies/Symfony-workplace)
 
 ## Скрипты
 
