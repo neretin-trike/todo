@@ -87,7 +87,7 @@ function loginUser(formData) {
 }
 
 export { loginUser, 
-        registerUser,
+         registerUser,
          saveTask, 
          getTaskList, 
          getTask,

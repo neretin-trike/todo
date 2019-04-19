@@ -1,5 +1,4 @@
 import React, { Component, Children } from 'react';
-import * as ReactRouterDOM from "react-router-dom";
 import './App.css';
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
@@ -14,12 +13,6 @@ import Wrapper from './main/Wrapper';
 import { Provider } from 'react-redux';
 import store from '../store';
 import {setInitalState} from "../actions/actions";
-
-const Router = ReactRouterDOM.BrowserRouter;
-const Route = ReactRouterDOM.Route;
-const Switch = ReactRouterDOM.Switch;
-const Link = ReactRouterDOM.Link;
-const Redirect = ReactRouterDOM.Redirect;
 
 const theme = createMuiTheme(PALETE);
 
